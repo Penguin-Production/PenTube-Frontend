@@ -1,7 +1,6 @@
 module.exports = {
 	env: {
 		browser: true,
-		amd: true,
 		node: true,
 	},
 	parser: '@typescript-eslint/parser',
@@ -12,6 +11,7 @@ module.exports = {
 			jsx: true,
 		},
 	},
+	root: true,
 	settings: {
 		react: {
 			version: 'detect',
@@ -19,7 +19,7 @@ module.exports = {
 		'import/resolver': {
 			node: {
 				paths: ['src'],
-				extensions: ['.js', '.jsx', '.ts', '.tsx'],
+				extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.yaml'],
 			},
 		},
 	},
@@ -27,16 +27,15 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:react/recommended',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:prettier/recommended',
 		'plugin:jsx-a11y/recommended',
 		'plugin:import/errors',
 		'plugin:import/warnings',
+		'plugin:import/typescript',
+		'plugin:prettier/recommended',
 	],
-	overrides: [],
-
-	plugins: ['prettier'],
+	plugins: [],
 	rules: {
-		'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+		'prettier/prettier': ['error', { endOfLine: 'auto' }, { usePrettierrc: true }],
 		'no-console': 'warn',
 		'no-eval': 'warn',
 		'no-proto': 2,
@@ -54,5 +53,7 @@ module.exports = {
 		'import/no-cycle': 'error',
 		'import/no-duplicates': 'error',
 		'no-unused-vars': 'warn',
+		'@typescript-eslint/no-unused-vars': 'warn',
+		'@typescript-eslint/no-explicit-any': 'off',
 	},
 };

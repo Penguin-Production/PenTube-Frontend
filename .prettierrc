@@ -9,6 +9,7 @@
 	"tabWidth": 4,
 	"trailingComma": "es5",
 	"useTabs": true,
-    "importOrder": ["^react$", "^[a-z\\-/]*$", "(^components)", "(^[src/]*$|^[./]|^[../])", ""],
-    "importOrderSeparation": true
+	"endOfLine": "auto",
+	"importOrder": ["^react$", "^[a-z\\-/]*$", "(^components)", "(^[src/]*$|^[./]|^[../])", ""],
+	"importOrderSeparation": true
 }

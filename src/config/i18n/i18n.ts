@@ -1,9 +1,18 @@
 import { initReactI18next } from 'react-i18next/initReactI18next';
 import vn from '../languages/locales/vn/';
 import en from '../languages/locales/en/';
+
+
+
 import i18next from 'i18next';
+
+
+
+
 import LanguageDetector from "i18next-browser-languagedetector";
 import I18NextHttpBackend from 'i18next-http-backend';
+
+
 import { NODE_ENV } from '..';
 
 export const defaultNS = 'homepage';
