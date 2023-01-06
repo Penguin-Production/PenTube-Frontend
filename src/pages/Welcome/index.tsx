@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 const Welcome = () => {
 	const [count, setCount] = useState<number>(0);
 	const [data, setData] = useState<any>();
-	const darkMode = useDarkMode(false);
+	const darkMode = useDarkMode(false, { storageKey: 'theme' });
 	const { type, isDark } = useTheme();
 	useEffect(() => {
 		const getUser = async () => {
@@ -37,12 +37,12 @@ const Welcome = () => {
 			<Container>
 				<Row justify='center'>
 					<Col span={1}>
-						<Button ripple size={'xs'} onClick={() => i18n.changeLanguage('en')}>
+						<Button ripple size={'xs'} onPress={() => i18n.changeLanguage('en')}>
 							EN
 						</Button>
 					</Col>
 					<Col span={1}>
-						<Button size={'xs'} onClick={() => i18n.changeLanguage('vn')}>
+						<Button size={'xs'} onPress={() => i18n.changeLanguage('vn')}>
 							VN
 						</Button>
 					</Col>
@@ -63,7 +63,7 @@ const Welcome = () => {
 				<Text h2>Random name: {data?.name.first}</Text>
 				<Container className='card'>
 					<Row justify='center'>
-						<Button onClick={() => setCount((count) => count + 1)}>
+						<Button onPress={() => setCount((count) => count + 1)}>
 							count is {count}
 						</Button>
 					</Row>

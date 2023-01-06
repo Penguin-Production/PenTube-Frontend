@@ -13,7 +13,6 @@ const App = () => {
 	const darkMode = useDarkMode(false, {
 		storageKey: 'theme',
 	});
-
 	return (
 		<NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
 			<Welcome />
