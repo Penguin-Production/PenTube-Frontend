@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import useDarkMode from 'use-dark-mode';
 
 import demo from '../../utils/apis/demo';
+import usePersistedState from '../../utils/hooks/usePersistedState';
 import reactLogo from './../../assets/react.svg';
 
 import { useTheme, Container, Link, Row, Col, Button, Switch, Text } from '@nextui-org/react';
@@ -10,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 const Welcome = () => {
 	const [count, setCount] = useState<number>(0);
-	const [data, setData] = useState<any>();
+	const [data, setData] = usePersistedState<any>('data');
 	const darkMode = useDarkMode(false, { storageKey: 'theme' });
 	const { type, isDark } = useTheme();
 	useEffect(() => {
@@ -60,7 +61,7 @@ const Welcome = () => {
 
 			<Container>
 				<Text h1>{t('homepage.Welcome')}</Text>
-				<Text h2>Random name: {data?.name.first}</Text>
+				<Text h2>Random name: {data.name?.first}</Text>
 				<Container className='card'>
 					<Row justify='center'>
 						<Button onPress={() => setCount((count) => count + 1)}>

@@ -4,8 +4,8 @@ import useDarkMode from 'use-dark-mode';
 
 import './App.css';
 import Welcome from './pages/Welcome';
+import Router from './routes';
 import { lightTheme, darkTheme } from './theme';
-import demo from './utils/apis/demo';
 
 import { NextUIProvider } from '@nextui-org/react';
 
@@ -15,7 +15,7 @@ const App = () => {
 	});
 	return (
 		<NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
-			<Welcome />
+			<Router />
 		</NextUIProvider>
 	);
 };
