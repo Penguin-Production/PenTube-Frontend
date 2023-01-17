@@ -17,11 +17,24 @@ const publicRoute = [
 	},
 ];
 
+const privateRoute = [
+	{
+		path: '',
+		exact: true,
+		component: <Welcome />,
+	},
+];
+
 const Router = () => {
 	return (
 		<Routes>
 			<Route path='/'>
 				{publicRoute.map((route) => (
+					<Route key={route.path} path={route.path} element={route.component} />
+				))}
+			</Route>
+			<Route path='/'>
+				{privateRoute.map((route) => (
 					<Route key={route.path} path={route.path} element={route.component} />
 				))}
 			</Route>
