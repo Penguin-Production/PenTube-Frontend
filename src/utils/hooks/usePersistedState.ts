@@ -1,7 +1,11 @@
 import { Dispatch, SetStateAction, useState, useEffect } from 'react';
 
 import { LocalStorageUtils } from './../helper/localStorage';
-import { UsePersistedState } from './index.d';
+
+type UsePersistedState = <T>(
+	key: string,
+	defaultValue: T | null
+) => [T, Dispatch<SetStateAction<T>>];
 
 /**
  * Make a local storage state value

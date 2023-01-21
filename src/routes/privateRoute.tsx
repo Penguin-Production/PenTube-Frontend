@@ -1,15 +1,15 @@
-import { useState } from 'react';
-
 import { Navigate, Outlet } from 'react-router-dom';
 
-import Welcome from '../pages/Welcome';
 import { User } from '../utils/dto/user';
 import usePersistedState from '../utils/hooks/usePersistedState';
 
 type props = {
 	role: string;
 };
-const privateRoute = ({ role }: props) => {
+
+// we may not use the role attribute
+const PrivateRoute = (props: props) => {
+	const { role } = props;
 	const [user, setUser] = usePersistedState<User>('user', {} as User);
 	if (user.role === role) {
 		return <Outlet />;
@@ -17,4 +17,4 @@ const privateRoute = ({ role }: props) => {
 	return <Navigate to='/' />;
 };
 
-export default privateRoute;
+export default PrivateRoute;
