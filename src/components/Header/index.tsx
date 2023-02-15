@@ -29,7 +29,13 @@ const Header = () => {
 						flexGrow: 0,
 					}}
 				>
-					<Input clearable type='text' placeholder='Search...' fullWidth />
+					<Input
+						clearable
+						type='text'
+						placeholder='Search...'
+						fullWidth
+						aria-label='Search'
+					/>
 				</Navbar.Item>
 				<Navbar.Item>
 					<SearchButton />

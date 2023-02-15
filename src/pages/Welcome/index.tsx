@@ -27,7 +27,7 @@ const Welcome = () => {
 	const [t, i18n] = useTranslation('translation'); // namespace translation
 	return (
 		<Container>
-			<Container>
+			<Container justify='center'>
 				<Link href='https://vitejs.dev' target='_blank' rel='noreferrer'>
 					<img src='/vite.svg' className='logo' alt='Vite logo' />
 				</Link>

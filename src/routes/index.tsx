@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Layout from '../components/Layout';
 import ErrorPage from '../pages/Error';
+import HomePage from '../pages/Home';
 import Welcome from '../pages/Welcome';
 import PrivateRoute from './privateRoute';
 import PublicRoute from './publicRoute';
@@ -12,7 +13,7 @@ const publicRoute: Array<Record<string, any>> = [
 	{
 		path: '',
 		exact: true,
-		component: <Welcome />,
+		component: <HomePage />,
 	},
 	// {
 	// 	path: 'home',
@@ -25,11 +26,11 @@ const privateRoute: Array<Record<string, any>> = [
 	{
 		role: 'user',
 		// TODO: path and route just for testing, change it if needed
-		routes: [{ path: '/user/home', exact: true, component: <Welcome /> }],
+		routes: [{ path: '/user/home', exact: true, component: <HomePage /> }],
 	},
 	{
 		role: 'admin',
-		routes: [{ path: '', exact: true, component: <Welcome /> }],
+		routes: [{ path: '', exact: true, component: <HomePage /> }],
 	},
 ];
 const Router = () => {
