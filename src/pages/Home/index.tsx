@@ -20,7 +20,7 @@ const HomePage = () => {
 		<Grid.Container gap={2}>
 			{videoList?.map((video: Video, index) => {
 				return (
-					<Grid key={index} xs={3}>
+					<Grid key={index} xs={12} sm={4} md={3}>
 						<CardItem video={video} />
 					</Grid>
 				);
