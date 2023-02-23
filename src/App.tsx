@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import useDarkMode from 'use-dark-mode';
 
@@ -10,9 +10,7 @@ import { lightTheme, darkTheme } from './theme';
 import { NextUIProvider } from '@nextui-org/react';
 
 const App = () => {
-	const darkMode = useDarkMode(false, {
-		storageKey: 'theme',
-	});
+	const darkMode = useDarkMode(false);
 	return (
 		<NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
 			<Router />

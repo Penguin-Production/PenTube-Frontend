@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import ErrorPage from '../pages/Error';
+import WatchVideo from '../pages/Watch';
 import Welcome from '../pages/Welcome';
 import PrivateRoute from './privateRoute';
 import PublicRoute from './publicRoute';
@@ -15,6 +16,11 @@ const publicRoute = [
 		path: 'home',
 		exact: true,
 		component: <Welcome />,
+	},
+	{
+		path: 'watch/:id',
+		exact: true,
+		component: <WatchVideo />,
 	},
 ];
 
