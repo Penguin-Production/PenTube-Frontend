@@ -13,4 +13,5 @@ export interface Video {
 	thumbnail: string;
 	createdAt: string;
 	updatedAt: string;
+	score: number;
 }

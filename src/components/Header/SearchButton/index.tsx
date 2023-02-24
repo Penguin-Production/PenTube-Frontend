@@ -7,7 +7,7 @@ type props = {
 };
 const SearchButton = ({ onClick }: props) => {
 	return (
-		<Button type='submit' auto onClick={onClick}>
+		<Button type='submit' auto onPress={onClick}>
 			<BiSearchAlt></BiSearchAlt>
 		</Button>
 	);
