@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ErrorPage from '../pages/Error';
 import HomePage from '../pages/Home';
+import SearchPage from '../pages/Search';
 import Welcome from '../pages/Welcome';
 import PrivateRoute from './privateRoute';
 import PublicRoute from './publicRoute';
@@ -20,6 +21,11 @@ const publicRoute: Array<Record<string, any>> = [
 	// 	exact: true,
 	// 	component: <Welcome />,
 	// },
+	{
+		path: 'search',
+		exact: true,
+		component: <SearchPage />,
+	},
 ];
 
 const privateRoute: Array<Record<string, any>> = [

@@ -3,7 +3,7 @@ import useDarkMode from 'use-dark-mode';
 import { darkTheme, lightTheme } from '../../../theme';
 import { Video } from '../../../utils/dto/video';
 
-import { Card, Container, Grid, Image, Text, useTheme } from '@nextui-org/react';
+import { Card, Container, Text } from '@nextui-org/react';
 
 type props = {
 	video: Video;
@@ -18,18 +18,18 @@ const CardItem = (props: props) => {
 		: lightTheme.colors.descriptionVideo.value;
 	const createdDate = new Date(video.createdAt);
 	return (
-		<Card css={{ w: 'stretch' }}>
-			<Card.Header css={{ padding: 0, height: '173px' }}>
-				<Image width={'100%'} src={video.thumbnail || ''} />
-			</Card.Header>
-			<Card.Body>
-				<Text h4>{video.title}</Text>
-				<Text color={descriptionColor} small>
-					{createdDate.toDateString()}
-				</Text>
-				<Text color={descriptionColor} small>
-					{video.description}
-				</Text>
+		<Card isPressable isHoverable css={{ w: 'stretch' }}>
+			<Card.Body css={{ p: 0 }}>
+				<Card.Image width={'100%'} objectFit='cover' src={video.thumbnail || ''} />
+				<Container css={{ p: 10 }}>
+					<Text h4>{video.title}</Text>
+					<Text color={descriptionColor} size='$xs'>
+						{video.views.length} Watched - {createdDate.toDateString()}
+					</Text>
+					<Text color={descriptionColor} size='$xs'>
+						{video.description}
+					</Text>
+				</Container>
 			</Card.Body>
 		</Card>
 	);
