@@ -10,12 +10,13 @@ function apiCaller(
 	headers: object
 ) {
 	const url = `${API_URL}${endpoint}`;
+	console.log(url);
 	return axios({
 		method,
 		url,
-		data: body,
-		params,
-		headers,
+		data: Object.assign({}, body),
+		params: Object.assign({}, params),
+		headers: Object.assign({}, headers),
 	});
 }
 
