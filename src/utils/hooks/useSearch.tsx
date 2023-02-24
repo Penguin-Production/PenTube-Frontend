@@ -8,6 +8,7 @@ import { Video } from '../dto/video';
 
 const useSearch = () => {
 	const [search, setSearch] = useState<string>('');
+
 	const navigate = useNavigate();
 	const videoStore = useVideoStore();
 	const searchRef = useRef<HTMLInputElement>(null);

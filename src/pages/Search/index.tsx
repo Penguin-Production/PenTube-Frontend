@@ -1,16 +1,21 @@
 import useVideoStore from '../../storage/useVideoStore';
-import CardItem from '../Home/CardItem';
 import SearchItem from './SearchItem';
 
-import { Container, Grid, Image, Text } from '@nextui-org/react';
+import { Container, Loading } from '@nextui-org/react';
 
 const SearchPage = () => {
 	const videoStore = useVideoStore();
 	return (
 		<Container css={{ p: 10 }}>
-			{videoStore.videos.map((item) => {
-				return <SearchItem video={item} key={item._id} />;
-			})}
+			{videoStore.loading ? (
+				<Container css={{ p: 20 }}>
+					<Loading type='gradient' />
+				</Container>
+			) : (
+				videoStore.videos.map((item) => {
+					return <SearchItem video={item} key={item._id} />;
+				})
+			)}
 		</Container>
 	);
 };
