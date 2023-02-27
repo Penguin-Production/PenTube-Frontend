@@ -13,9 +13,9 @@ function apiCaller(
 	return axios({
 		method,
 		url,
-		data: body,
-		params,
-		headers,
+		data: Object.assign({}, body),
+		params: Object.assign({}, params),
+		headers: Object.assign({}, headers),
 	});
 }
 
