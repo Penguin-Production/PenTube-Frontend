@@ -10,7 +10,6 @@ function apiCaller(
 	headers: object
 ) {
 	const url = `${API_URL}${endpoint}`;
-	console.log(url);
 	return axios({
 		method,
 		url,

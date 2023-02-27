@@ -8,7 +8,6 @@ export interface Video {
 	status: string;
 	key: string | null;
 	views: any[];
-	totalViews: number;
 	like: any[];
 	dislike: any[];
 	channel: {
@@ -16,6 +15,7 @@ export interface Video {
 		name: string;
 		avatar: string;
 	};
+	totalViews: number;
 	thumbnail: string;
 	createdAt: string;
 	updatedAt: string;

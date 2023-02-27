@@ -27,13 +27,21 @@ const CardItem = (props: props) => {
 			onClick={() => navigate(`watch/${video._id}`)}
 		>
 			<Card.Body css={{ p: 0 }}>
-				<Card.Image width={'100%'} objectFit='cover' src={video.thumbnail || ''} />
+				<Card.Image
+					width={'100%'}
+					objectFit='cover'
+					src={`http://img.youtube.com/vi/${video.url}/maxresdefault.jpg`}
+				/>
 				<Container css={{ p: 10 }}>
 					<Text h4>{video.title}</Text>
 					<Text color={descriptionColor} size='$xs'>
-						{video.views.length} Watched - {createdDate.toDateString()}
+						{video.totalViews} Watched - {createdDate.toDateString()}
 					</Text>
-					<Text color={descriptionColor} size='$xs'>
+					<Text
+						color={descriptionColor}
+						size='$xs'
+						css={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}
+					>
 						{video.description}
 					</Text>
 				</Container>
