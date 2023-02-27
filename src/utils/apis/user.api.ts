@@ -1,0 +1,22 @@
+import { get, post } from './../helper/apiCaller';
+
+type UserUpdateType = {
+	name: string;
+	email: string;
+	avatarUrl: string;
+};
+
+const userApi = {
+	getInformation: async () => {
+		const token = localStorage.getItem('token');
+		const response = await get('/user/information', {}, { Authorization: 'Bearer ' + token });
+		return response.data;
+	},
+	updateInformation: async (body: UserUpdateType) => {
+		const token = localStorage.getItem('token');
+		const response = await post('/user/update', body, {}, { Authorization: 'Bearer ' + token });
+		return response.data;
+	},
+};
+
+export default userApi;
