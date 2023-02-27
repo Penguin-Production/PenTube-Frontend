@@ -33,6 +33,7 @@ const HomePage = () => {
 		// 	navigate(0);
 		// }
 	}, []);
+	console.log('home', videoStore.videos);
 	return (
 		<Grid.Container gap={2}>
 			{videoStore.loading ? (

@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ErrorPage from '../pages/Error';
 import HomePage from '../pages/Home';
+import RegisterPage from '../pages/Register';
 import SearchPage from '../pages/Search';
+import WatchVideo from '../pages/Watch';
 import Welcome from '../pages/Welcome';
 import Auth from '../utils/hooks/useAuth';
 import PrivateRoute from './privateRoute';
@@ -17,6 +19,11 @@ const publicRoute: Array<Record<string, any>> = [
 		exact: true,
 		component: <HomePage />,
 	},
+	{
+		path: 'watch/:id',
+		exact: true,
+		component: <WatchVideo />,
+	},
 	// {
 	// 	path: 'home',
 	// 	exact: true,
@@ -26,6 +33,11 @@ const publicRoute: Array<Record<string, any>> = [
 		path: 'search',
 		exact: true,
 		component: <SearchPage />,
+	},
+	{
+		path: 'register',
+		exact: true,
+		component: <RegisterPage />,
 	},
 ];
 

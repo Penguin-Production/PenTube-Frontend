@@ -2,10 +2,6 @@ export interface Video {
 	_id: string;
 	title: string;
 	description: string;
-	channel: {
-		name: string;
-		avatar: string;
-	};
 	tags: string[];
 	url: string;
 	totalFrame: number;
@@ -14,6 +10,11 @@ export interface Video {
 	views: any[];
 	like: any[];
 	dislike: any[];
+	channel: {
+		_id: string;
+		name: string;
+		avatar: string;
+	};
 	totalViews: number;
 	thumbnail: string;
 	createdAt: string;
