@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import useDarkMode from 'use-dark-mode';
 
@@ -35,7 +36,7 @@ const SearchItem = (props: Props) => {
 						<Card.Body>
 							<Text h4>{video.title}</Text>
 							<Text color={descriptionColor} size='$xs'>
-								{video.totalViews} Watched - {createdDate.toDateString()}
+								{video.totalViews} Watched - {moment(createdDate).fromNow()}
 							</Text>
 							<Text
 								css={{
