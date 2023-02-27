@@ -22,7 +22,7 @@ export const WatchComponent = styled.div`
 			margin: 0.5rem 0 1rem;
 			.channel {
 				display: grid;
-				grid-template-columns: 40px 35% 35%;
+				grid-template-columns: 50px 35% 35%;
 				justify-content: space-between;
 				align-items: center;
 				img {
@@ -218,4 +218,20 @@ export const RecommendComponent = styled.a`
 		color: gray;
 		line-height: 22px;
 	}
+`;
+export const TextAreaComment = styled.div`
+	margin: 2rem 0;
+	.type-textarea {
+		display: grid;
+		grid-template-columns: 50px auto;
+		margin: 1rem 0;
+	}
+	button {
+		margin-left: auto;
+	}
+`;
+export const CommentContainer = styled.div`
+	display: grid;
+	grid-template-columns: 50px auto;
+	margin-bottom: 2rem;
 `;
