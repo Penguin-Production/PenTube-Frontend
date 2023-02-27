@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+
 import { ErrorBoundary } from 'react-error-boundary';
 import useDarkMode from 'use-dark-mode';
 
@@ -11,9 +13,7 @@ import Auth from './utils/hooks/useAuth';
 import { NextUIProvider } from '@nextui-org/react';
 
 const App = () => {
-	const darkMode = useDarkMode(false, {
-		storageKey: 'theme',
-	});
+	const darkMode = useDarkMode(false);
 	return (
 		<ErrorBoundary FallbackComponent={ErrorPage}>
 			<NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>

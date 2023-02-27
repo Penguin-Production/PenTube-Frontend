@@ -5,6 +5,7 @@ import ErrorPage from '../pages/Error';
 import HomePage from '../pages/Home';
 import RegisterPage from '../pages/Register';
 import SearchPage from '../pages/Search';
+import WatchVideo from '../pages/Watch';
 import Welcome from '../pages/Welcome';
 import Auth from '../utils/hooks/useAuth';
 import PrivateRoute from './privateRoute';
@@ -17,6 +18,11 @@ const publicRoute: Array<Record<string, any>> = [
 		path: '',
 		exact: true,
 		component: <HomePage />,
+	},
+	{
+		path: 'watch/:id',
+		exact: true,
+		component: <WatchVideo />,
 	},
 	// {
 	// 	path: 'home',
