@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 const Header = () => {
 	const { search, searchRef, onSearch } = useSearch();
-	const [t, i18n] = useTranslation('common'); // namespace translation
+	const [t] = useTranslation('common'); // namespace translation
 	return (
 		<Navbar
 			maxWidth='fluid'
