@@ -1,10 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import useDarkMode from 'use-dark-mode';
 
 import { darkTheme, lightTheme } from '../../../theme';
 import { Video } from '../../../utils/dto/video';
 
 import { Card, Col, Container, Grid, Image, Row, Text, useTheme } from '@nextui-org/react';
-import { useNavigate } from 'react-router-dom';
 
 type Props = {
 	video: Video;
@@ -20,7 +20,12 @@ const SearchItem = (props: Props) => {
 		: lightTheme.colors.descriptionVideo.value;
 	const createdDate = new Date(video.createdAt);
 	return (
-		<Card isHoverable isPressable css={{ marginBottom: '$10' }} onClick={() => navigate(`/watch/${video._id}`)}>
+		<Card
+			isHoverable
+			isPressable
+			css={{ marginBottom: '$10' }}
+			onClick={() => navigate(`/watch/${video._id}`)}
+		>
 			<Grid.Container key={video._id}>
 				<Grid xs={4}>
 					<Image src={`http://img.youtube.com/vi/${video.url}/maxresdefault.jpg`} />
