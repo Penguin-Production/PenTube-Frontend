@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const RecommendComponent = styled.a`
+export const RecommendComponent = styled.div`
 	display: grid;
 	grid-template-columns: 40% 58%;
 	justify-content: space-between;

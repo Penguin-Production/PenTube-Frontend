@@ -1,11 +1,15 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { Video } from '../../../utils/dto/video';
 import { RecommendComponent } from './styles';
 
 export default function RecommendVideo({ video }: { video: Video }) {
+	const navigate = useNavigate();
+
 	return (
-		<RecommendComponent href={`/watch/${video._id}`}>
+		<RecommendComponent onClick={() => navigate(`/watch/${video._id}`)}>
 			<div className='img-container'>
 				<img
 					src={`http://img.youtube.com/vi/${video.url}/maxresdefault.jpg`}

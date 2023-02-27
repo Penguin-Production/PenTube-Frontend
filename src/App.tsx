@@ -10,7 +10,6 @@ import Router from './routes';
 import { lightTheme, darkTheme } from './theme';
 
 import { NextUIProvider } from '@nextui-org/react';
-import 'antd/dist/reset.css';
 
 const App = () => {
 	const darkMode = useDarkMode(false);

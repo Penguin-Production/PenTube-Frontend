@@ -12,6 +12,7 @@ export interface Video {
 	like: any[];
 	dislike: any[];
 	channel: {
+		_id: string;
 		name: string;
 		avatar: string;
 	};
