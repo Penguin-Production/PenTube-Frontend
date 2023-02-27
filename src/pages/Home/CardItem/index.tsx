@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import useDarkMode from 'use-dark-mode';
 
 import { darkTheme, lightTheme } from '../../../theme';
@@ -9,6 +10,7 @@ type props = {
 	video: Video;
 };
 const CardItem = (props: props) => {
+	const navigate = useNavigate();
 	const darkMode = useDarkMode(false, {
 		storageKey: 'theme',
 	});
@@ -18,7 +20,12 @@ const CardItem = (props: props) => {
 		: lightTheme.colors.descriptionVideo.value;
 	const createdDate = new Date(video.createdAt);
 	return (
-		<Card isPressable isHoverable css={{ w: 'stretch' }}>
+		<Card
+			isPressable
+			isHoverable
+			css={{ w: 'stretch' }}
+			onClick={() => navigate(`watch/${video._id}`)}
+		>
 			<Card.Body css={{ p: 0 }}>
 				<Card.Image width={'100%'} objectFit='cover' src={video.thumbnail || ''} />
 				<Container css={{ p: 10 }}>

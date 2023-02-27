@@ -3,11 +3,12 @@ import React from 'react';
 import { Avatar, Button, Form, Input, List } from 'antd';
 import moment from 'moment';
 import ReactPlayer from 'react-player';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { VideoType } from './Entities/type';
+import useVideoStore from '../../storage/useVideoStore';
+import videoApi from '../../utils/apis/videoApi';
+import { Video } from '../../utils/dto/video';
 import RecommendVideo from './RecommendVideo';
-import { filmInformation } from './data';
 import { WatchComponent } from './styles';
 
 import { Comment } from '@ant-design/compatible';
@@ -39,7 +40,6 @@ interface EditorProps {
 const CommentList = ({ comments }: { comments: CommentItem[] }) => (
 	<List
 		dataSource={comments}
-		// header={`${comments.length} comments`}
 		itemLayout='horizontal'
 		renderItem={(props) => (
 			<Comment {...props} actions={[<span key='comment-nested-reply-to'>Reply</span>]} />
@@ -91,11 +91,21 @@ const ExampleComment: React.FC<{ children?: React.ReactNode }> = ({ children }) 
 );
 
 export default function WatchVideo() {
+	const navigate = useNavigate();
 	const { id } = useParams();
-	const [video, setVideo] = React.useState<VideoType | null>();
+	const [video, setVideo] = React.useState<Video>();
+	const videoStore = useVideoStore();
 
 	React.useEffect(() => {
-		filmInformation.forEach((film) => film.id.toString() === id && setVideo(film));
+		if (!id) navigate('/');
+		videoApi
+			.getById(id || '')
+			.then((video) => setVideo(video.data))
+			.catch(() => navigate('/'));
+		console.log('list', videoStore.videos);
+		// if(videos.length === 0) {
+
+		// }
 	}, []);
 
 	const [comments, setComments] = React.useState<CommentItem[]>([]);
@@ -128,94 +138,105 @@ export default function WatchVideo() {
 
 	return (
 		<WatchComponent>
-			<div className='left-content'>
-				<ReactPlayer
-					url={'https://www.youtube.com/embed/' + video?.url}
-					controls={true}
-					config={{
-						youtube: {
-							playerVars: {
-								start: 20,
+			{video && (
+				<div className='left-content'>
+					<ReactPlayer
+						url={'https://www.youtube.com/embed/' + video?.url}
+						controls={true}
+						config={{
+							youtube: {
+								playerVars: {
+									start: 20,
+								},
 							},
-						},
-					}}
-					className='video'
-					playing={true}
-				/>
-				<p className='title'>{video?.title}</p>
-				<div className='channel-container'>
-					<div className='channel'>
-						<img src='https://www.w3schools.com/w3css/img_avatar3.png' alt='avatar' />
-						<div>
-							<p style={{ fontWeight: '500' }}>{video?.channel}</p>
-							<p className='sl-sub'>{Math.round(Math.random() * 100)} subscribers</p>
-						</div>
-						<Button type='primary' style={{ background: 'black', fontWeight: '500' }}>
-							Subscribe
-						</Button>
-					</div>
-					<div className='action'>
-						<div className='like-dislike'>
-							<Button type='text'>
-								<LikeOutlined />
-							</Button>
-							|
-							<Button type='text'>
-								<DislikeOutlined />
-							</Button>
-						</div>
-						<Button type='text'>
-							<ShareAltOutlined />
-							Share
-						</Button>
-						<Button type='text'>
-							<DownloadOutlined />
-							Download
-						</Button>
-						<Button type='text'>
-							<EllipsisOutlined />
-						</Button>
-					</div>
-				</div>
-				<p className='description'>
-					<b>{`${video?.totalViews} views - ${moment(video?.createdAt).fromNow()}`}</b>
-					<p>{video?.description}</p>
-				</p>
-				<div className='comment-video'>
-					<p className='title'>
-						Comments
-						<span>( {comments.length + 4} )</span>
-					</p>
-					<Comment
-						avatar={
-							<Avatar
-								src='https://www.w3schools.com/w3css/img_avatar3.png'
-								alt='your-comment'
-							/>
-						}
-						content={
-							<Editor
-								onChange={handleChange}
-								onSubmit={handleSubmit}
-								submitting={submitting}
-								value={value}
-							/>
-						}
+						}}
+						className='video'
+						playing={true}
 					/>
-					{comments.length > 0 && <CommentList comments={comments} />}
-					<ExampleComment />
-					<ExampleComment>
+					<p className='title'>{video?.title}</p>
+					<div className='channel-container'>
+						<div className='channel'>
+							<img src={video?.channel.avatar} alt='avatar' />
+							<div>
+								<p style={{ fontWeight: '500' }}>{video?.channel.name}</p>
+								<p className='sl-sub'>
+									{Math.round(Math.random() * 100)} subscribers
+								</p>
+							</div>
+							<Button
+								type='primary'
+								style={{ background: 'black', fontWeight: '500' }}
+							>
+								Subscribe
+							</Button>
+						</div>
+						<div className='action'>
+							<div className='like-dislike'>
+								<Button type='text'>
+									<LikeOutlined />
+								</Button>
+								|
+								<Button type='text'>
+									<DislikeOutlined />
+								</Button>
+							</div>
+							<Button type='text'>
+								<ShareAltOutlined />
+								Share
+							</Button>
+							<Button type='text'>
+								<DownloadOutlined />
+								Download
+							</Button>
+							<Button type='text'>
+								<EllipsisOutlined />
+							</Button>
+						</div>
+					</div>
+					<p className='description'>
+						<b>{`${video?.totalViews} views - ${moment(
+							video?.createdAt
+						).fromNow()}`}</b>
+						<p>{video?.description}</p>
+					</p>
+					<div className='comment-video'>
+						<p className='title'>
+							Comments
+							<span>( {comments.length + 4} )</span>
+						</p>
+						<Comment
+							avatar={
+								<Avatar
+									src='https://www.w3schools.com/w3css/img_avatar3.png'
+									alt='your-comment'
+								/>
+							}
+							content={
+								<Editor
+									onChange={handleChange}
+									onSubmit={handleSubmit}
+									submitting={submitting}
+									value={value}
+								/>
+							}
+						/>
+						{comments.length > 0 && <CommentList comments={comments} />}
 						<ExampleComment />
-					</ExampleComment>
-					<ExampleComment />
+						<ExampleComment>
+							<ExampleComment />
+						</ExampleComment>
+						<ExampleComment />
+					</div>
 				</div>
-			</div>
-			<div>
-				{filmInformation.map(
-					(todo: VideoType, index: number) =>
-						todo.id !== video?.id && <RecommendVideo video={todo} key={index} />
-				)}
-			</div>
+			)}
+			{videoStore.videos.length > 0 && (
+				<div>
+					{videoStore.videos.map(
+						(todo: Video, index: number) =>
+							todo._id !== video?._id && <RecommendVideo video={todo} key={index} />
+					)}
+				</div>
+			)}
 		</WatchComponent>
 	);
 }
