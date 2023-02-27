@@ -1,4 +1,4 @@
-# Pentub
+# Pentube
 A small project showing video for everyone. Inspired from youtube.
 
 ## A Quick Look 
