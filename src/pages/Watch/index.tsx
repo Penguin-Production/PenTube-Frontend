@@ -229,14 +229,14 @@ export default function WatchVideo() {
 					</div>
 				</div>
 			)}
-			{videoStore.videos.length > 0 && (
+			{/* {videoStore.videos.length > 0 && (
 				<div>
 					{videoStore.videos.map(
 						(todo: Video, index: number) =>
 							todo._id !== video?._id && <RecommendVideo video={todo} key={index} />
 					)}
 				</div>
-			)}
+			)} */}
 		</WatchComponent>
 	);
 }
