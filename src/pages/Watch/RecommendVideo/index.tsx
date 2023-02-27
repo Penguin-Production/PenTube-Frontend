@@ -1,5 +1,6 @@
 import React from 'react';
 
+import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
 import { Video } from '../../../utils/dto/video';
@@ -20,7 +21,11 @@ export default function RecommendVideo({ video }: { video: Video }) {
 			<div className='content'>
 				<p className='title-ref'>{video.title}</p>
 				<p className='channel'>{video.channel.name}</p>
-				<p className='views'>{video.totalViews} views</p>
+				<p className='views'>
+					{video.totalViews} views
+					<span style={{ margin: '0 10px' }}>•</span>
+					{moment(new Date(video.createdAt)).fromNow()}
+				</p>
 			</div>
 		</RecommendComponent>
 	);
