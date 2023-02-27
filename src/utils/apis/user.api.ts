@@ -1,3 +1,4 @@
+import { LocalStorageUtils } from '../helper/localStorage';
 import { get, post } from './../helper/apiCaller';
 
 type UserUpdateType = {
@@ -8,12 +9,12 @@ type UserUpdateType = {
 
 const userApi = {
 	getInformation: async () => {
-		const token = localStorage.getItem('token');
+		const token = LocalStorageUtils.getItem('token');
 		const response = await get('/user/information', {}, { Authorization: 'Bearer ' + token });
 		return response.data;
 	},
 	updateInformation: async (body: UserUpdateType) => {
-		const token = localStorage.getItem('token');
+		const token = LocalStorageUtils.getItem('token');
 		const response = await post('/user/update', body, {}, { Authorization: 'Bearer ' + token });
 		return response.data;
 	},

@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import userApi from '../../utils/apis/user.api';
+import { LocalStorageUtils } from '../../utils/helper/localStorage';
 import { RegisterComponent } from './styles';
 
 import { CameraOutlined } from '@ant-design/icons/lib/icons';
@@ -29,8 +30,8 @@ export default function RegisterPage() {
 
 	React.useEffect(() => {
 		if (tokens.get('token')) {
-			localStorage.setItem('token', tokens.get('token') || '');
-			localStorage.setItem('refresh-token', tokens.get('refreshToken') || '');
+			LocalStorageUtils.setItem('token', tokens.get('token') || '');
+			LocalStorageUtils.setItem('refreshToken', tokens.get('refreshToken') || '');
 			navigate('/register');
 		}
 		userApi
