@@ -46,6 +46,10 @@ export const RecommendComponent = styled.div`
 		font-size: 16px;
 		line-height: 21px;
 		font-weight: 500;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		display: -webkit-box;
 	}
 	.channel,
 	.views {
