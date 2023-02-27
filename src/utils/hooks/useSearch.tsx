@@ -29,11 +29,6 @@ const useSearch = () => {
 			.finally(() => {
 				videoStore.setLoading(false);
 			});
-		videos.sort((a: Video, b: Video) => {
-			if (a.score - b.score > 0) return -1;
-			if (a.score - b.score < 0) return 1;
-			return a.views.length - b.views.length;
-		});
 		videoStore.setVideo(videos);
 		navigate('/search');
 	};

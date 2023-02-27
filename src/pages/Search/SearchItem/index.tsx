@@ -21,16 +21,24 @@ const SearchItem = (props: Props) => {
 		<Card isHoverable isPressable css={{ marginBottom: '$10' }}>
 			<Grid.Container key={video._id}>
 				<Grid xs={4}>
-					<Image src={video.thumbnail} />
+					<Image src={`http://img.youtube.com/vi/${video.url}/maxresdefault.jpg`} />
 				</Grid>
 				<Grid xs={8} css={{ p: 0 }}>
-					<Container fluid>
+					<Container>
 						<Card.Body>
 							<Text h4>{video.title}</Text>
 							<Text color={descriptionColor} size='$xs'>
-								{video.views.length} Watched - {createdDate.toDateString()}
+								{video.totalViews} Watched - {createdDate.toDateString()}
 							</Text>
-							<Text color={descriptionColor} size='$xs'>
+							<Text
+								css={{
+									overflow: 'hidden',
+									textOverflow: 'ellipsis',
+									whiteSpace: 'nowrap',
+								}}
+								color={descriptionColor}
+								size='$xs'
+							>
 								{video.description}
 							</Text>
 						</Card.Body>

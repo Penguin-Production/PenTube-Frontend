@@ -5,6 +5,7 @@ import { Container, Loading } from '@nextui-org/react';
 
 const SearchPage = () => {
 	const videoStore = useVideoStore();
+
 	return (
 		<Container css={{ p: 10 }}>
 			{videoStore.loading ? (

@@ -4,7 +4,7 @@ import { LocalStorageUtils } from './../helper/localStorage';
 
 type UsePersistedState = <T>(
 	key: string,
-	defaultValue: T | null
+	defaultValue?: T | null
 ) => [T, Dispatch<SetStateAction<T>>];
 
 /**

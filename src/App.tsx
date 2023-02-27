@@ -6,6 +6,7 @@ import ErrorPage from './pages/Error';
 import Welcome from './pages/Welcome';
 import Router from './routes';
 import { lightTheme, darkTheme } from './theme';
+import Auth from './utils/hooks/useAuth';
 
 import { NextUIProvider } from '@nextui-org/react';
 
