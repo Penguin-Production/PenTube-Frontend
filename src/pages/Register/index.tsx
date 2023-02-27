@@ -112,7 +112,7 @@ export default function RegisterPage() {
 					>
 						<img src={avatar} alt='avatar' />
 						{isHover && (
-							<button onClick={() => openNotificationWithIcon('success', 'test')}>
+							<button onClick={() => setIsModal(true)}>
 								<CameraOutlined style={{ marginRight: '5px' }} /> Change
 							</button>
 						)}
