@@ -24,9 +24,13 @@ const CardItem = (props: props) => {
 				<Container css={{ p: 10 }}>
 					<Text h4>{video.title}</Text>
 					<Text color={descriptionColor} size='$xs'>
-						{video.views.length} Watched - {createdDate.toDateString()}
+						{video.totalViews} Watched - {createdDate.toDateString()}
 					</Text>
-					<Text color={descriptionColor} size='$xs'>
+					<Text
+						color={descriptionColor}
+						size='$xs'
+						css={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}
+					>
 						{video.description}
 					</Text>
 				</Container>

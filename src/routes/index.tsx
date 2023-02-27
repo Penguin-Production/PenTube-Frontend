@@ -5,6 +5,7 @@ import ErrorPage from '../pages/Error';
 import HomePage from '../pages/Home';
 import SearchPage from '../pages/Search';
 import Welcome from '../pages/Welcome';
+import Auth from '../utils/hooks/useAuth';
 import PrivateRoute from './privateRoute';
 import PublicRoute from './publicRoute';
 
@@ -41,31 +42,33 @@ const privateRoute: Array<Record<string, any>> = [
 ];
 const Router = () => {
 	return (
-		<Layout>
-			<Routes>
-				<Route path='/' element={<PublicRoute />}>
-					{publicRoute.map((route) => (
-						<Route key={route.path} path={route.path} element={route.component} />
-					))}
-				</Route>
-				{privateRoute.map((routeByRole) => (
-					<Route
-						key={routeByRole.role + '_route'}
-						path='/'
-						element={<PrivateRoute role={routeByRole.role} />}
-					>
-						{routeByRole.routes.map((route: Record<string, any>) => (
-							<Route
-								key={route.path + '_' + routeByRole.role}
-								path={route.path}
-								element={route.component}
-							/>
+		<Auth>
+			<Layout>
+				<Routes>
+					<Route path='/' element={<PublicRoute />}>
+						{publicRoute.map((route) => (
+							<Route key={route.path} path={route.path} element={route.component} />
 						))}
 					</Route>
-				))}
-				<Route path='*' key={'notFound'} element={<ErrorPage />}></Route>
-			</Routes>
-		</Layout>
+					{privateRoute.map((routeByRole) => (
+						<Route
+							key={routeByRole.role + '_route'}
+							path='/'
+							element={<PrivateRoute role={routeByRole.role} />}
+						>
+							{routeByRole.routes.map((route: Record<string, any>) => (
+								<Route
+									key={route.path + '_' + routeByRole.role}
+									path={route.path}
+									element={route.component}
+								/>
+							))}
+						</Route>
+					))}
+					<Route path='*' key={'notFound'} element={<ErrorPage />}></Route>
+				</Routes>
+			</Layout>
+		</Auth>
 	);
 };
 

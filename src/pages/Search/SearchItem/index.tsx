@@ -28,10 +28,14 @@ const SearchItem = (props: Props) => {
 						<Card.Body>
 							<Text h4>{video.title}</Text>
 							<Text color={descriptionColor} size='$xs'>
-								{video.views.length} Watched - {createdDate.toDateString()}
+								{video.totalViews} Watched - {createdDate.toDateString()}
 							</Text>
 							<Text
-								css={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
+								css={{
+									overflow: 'hidden',
+									textOverflow: 'ellipsis',
+									whiteSpace: 'nowrap',
+								}}
 								color={descriptionColor}
 								size='$xs'
 							>

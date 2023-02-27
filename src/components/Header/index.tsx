@@ -1,5 +1,11 @@
-import { MutableRefObject, Ref, RefAttributes, useRef } from 'react';
+import { MutableRefObject, Ref, RefAttributes, useContext, useRef } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
+import { API_URL } from '../../config';
+import { auth } from '../../utils/apis/auth';
+import { authContext } from '../../utils/hooks/useAuth';
+import usePersistedState from '../../utils/hooks/usePersistedState';
 import useSearch from '../../utils/hooks/useSearch';
 import SearchButton from './SearchButton';
 
@@ -8,7 +14,18 @@ import { useTranslation } from 'react-i18next';
 
 const Header = () => {
 	const { search, searchRef, onSearch } = useSearch();
+	const navigate = useNavigate();
+	const authToken = useContext(authContext);
 	const [t] = useTranslation('common'); // namespace translation
+	const [token, setToken] = usePersistedState<string>('token');
+	const [refreshToken, setRefreshToken] = usePersistedState<string>('refreshToken');
+	const logout = async () => {
+		await auth.logout(token, refreshToken).then(() => {
+			setToken('');
+			setRefreshToken('');
+			navigate(0);
+		});
+	};
 	return (
 		<Navbar
 			maxWidth='fluid'
@@ -50,16 +67,29 @@ const Header = () => {
 				</Navbar.Item>
 			</Navbar.Content>
 			<Navbar.Content>
-				<Navbar.Item>
-					<Button bordered auto>
-						{t('button.login')}
-					</Button>
-				</Navbar.Item>
-				<Navbar.Item>
-					<Button color='primary' auto>
-						{t('button.sign_up')}
-					</Button>
-				</Navbar.Item>
+				{!authToken && (
+					<>
+						<Navbar.Item>
+							<Button bordered auto as={'a'} href={`${API_URL}/auth/login/google`}>
+								{t('button.login')}
+							</Button>
+						</Navbar.Item>
+						<Navbar.Item>
+							<Button color='primary' auto>
+								{t('button.sign_up')}
+							</Button>
+						</Navbar.Item>
+					</>
+				)}
+				{authToken && (
+					<>
+						<Navbar.Item>
+							<Button bordered auto onPress={logout}>
+								{t('button.logout')}
+							</Button>
+						</Navbar.Item>
+					</>
+				)}
 			</Navbar.Content>
 		</Navbar>
 	);

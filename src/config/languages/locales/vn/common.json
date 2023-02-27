@@ -7,7 +7,8 @@
 		"cancel": "Huỷ",
 		"ok": "Đồng ý",
 		"login": "Đăng nhập",
-		"sign_up": "Đăng ký"
+		"sign_up": "Đăng ký",
+		"logout": "Đăng xuất"
 	},
 	"error": {
 		"404": "Trang không tồn tại",
