@@ -20,7 +20,11 @@ const CardItem = (props: props) => {
 	return (
 		<Card isPressable isHoverable css={{ w: 'stretch' }}>
 			<Card.Body css={{ p: 0 }}>
-				<Card.Image width={'100%'} objectFit='cover' src={video.thumbnail || ''} />
+				<Card.Image
+					width={'100%'}
+					objectFit='cover'
+					src={`http://img.youtube.com/vi/${video.url}/maxresdefault.jpg`}
+				/>
 				<Container css={{ p: 10 }}>
 					<Text h4>{video.title}</Text>
 					<Text color={descriptionColor} size='$xs'>
