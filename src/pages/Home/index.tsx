@@ -10,10 +10,10 @@ import { Card, Container, Grid, Loading, Text } from '@nextui-org/react';
 
 const HomePage = () => {
 	const videoStore = useVideoStore(); // [
-
 	useEffect(() => {
+		videoStore.setLoading(true);
 		const getVideo = async () => {
-			const res = await videoApi.getAll();
+			const res = await videoApi.getAll().finally(() => videoStore.setLoading(false));
 			videoStore.setVideo(res.data || []);
 			return res;
 		};

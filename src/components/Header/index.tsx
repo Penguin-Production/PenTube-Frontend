@@ -4,10 +4,11 @@ import useSearch from '../../utils/hooks/useSearch';
 import SearchButton from './SearchButton';
 
 import { Button, FormElement, Grid, Input, Link, Navbar, Text } from '@nextui-org/react';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
 	const { search, searchRef, onSearch } = useSearch();
-
+	const [t, i18n] = useTranslation('common'); // namespace translation
 	return (
 		<Navbar
 			maxWidth='fluid'
@@ -39,7 +40,7 @@ const Header = () => {
 						enterKeyHint='search'
 						ref={searchRef}
 						type='text'
-						placeholder='Search...'
+						placeholder={t('form.search_placeholder') || 'Search'}
 						fullWidth
 						aria-label='Search'
 					/>
@@ -49,10 +50,14 @@ const Header = () => {
 				</Navbar.Item>
 			</Navbar.Content>
 			<Navbar.Content>
-				<Navbar.Link>Login</Navbar.Link>
+				<Navbar.Item>
+					<Button bordered auto>
+						{t('button.login')}
+					</Button>
+				</Navbar.Item>
 				<Navbar.Item>
 					<Button color='primary' auto>
-						Sign Up
+						{t('button.sign_up')}
 					</Button>
 				</Navbar.Item>
 			</Navbar.Content>

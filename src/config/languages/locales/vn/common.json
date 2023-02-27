@@ -1,18 +1,19 @@
 {
-        "form" : {
-                "search" : "Tìm kiếm",
-                "search_placeholder" : "Nhập từ khóa tìm kiếm"
-        },
-        "button" : {
-                "cancel" : "Cancel",
-                "ok" : "OK"
-        },
-        "error" : {
-                "404": "Trang không tồn tại",
-                "500": "Lỗi hệ thống, vui lòng thử lại sau",
-                "no_results": "Không có kết quả nào",
-                "no_results_for": "Không có kết quả nào cho từ khóa: ",
-                "unknown": "Lỗi không xác định, vui lòng thử lại sau"
-        }
-        
+	"form": {
+		"search": "Tìm kiếm",
+		"search_placeholder": "Nhập từ khóa tìm kiếm"
+	},
+	"button": {
+		"cancel": "Huỷ",
+		"ok": "Đồng ý",
+		"login": "Đăng nhập",
+		"sign_up": "Đăng ký"
+	},
+	"error": {
+		"404": "Trang không tồn tại",
+		"500": "Lỗi hệ thống, vui lòng thử lại sau",
+		"no_results": "Không có kết quả nào",
+		"no_results_for": "Không có kết quả nào cho từ khóa: ",
+		"unknown": "Lỗi không xác định, vui lòng thử lại sau"
+	}
 }

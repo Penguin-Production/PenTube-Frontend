@@ -2,6 +2,7 @@ export interface Video {
 	_id: string;
 	title: string;
 	description: string;
+	channel: string | Record<string, any>;
 	tags: string[];
 	url: string;
 	totalFrame: number;
