@@ -11,7 +11,7 @@ export const RegisterComponent = styled.div`
 		max-width: 30rem;
 		text-align: left;
 		background: rgba(0, 0, 0, 0.07);
-		padding: 3rem 2rem;
+		padding: 1.5rem 2rem;
 		border-radius: 10px;
 		.avatar {
 			width: 100px;

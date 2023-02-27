@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Button, Form, Input, Select, Spin, Modal, Image, notification } from 'antd';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 import userApi from '../../utils/apis/user.api';
 import { RegisterComponent } from './styles';
 
-import { LoadingOutlined, CameraOutlined } from '@ant-design/icons/lib/icons';
-
-const { Option } = Select;
+import { CameraOutlined } from '@ant-design/icons/lib/icons';
+import { Modal, Button, Text, Input, Image, Grid, Spacer, Loading } from '@nextui-org/react';
+import 'react-toastify/dist/ReactToastify.css';
 
 type UserType = {
 	name: string;
@@ -17,19 +17,7 @@ type UserType = {
 };
 type NotificationType = 'success' | 'error';
 
-const antIcon = (
-	<LoadingOutlined
-		style={{
-			fontSize: 18,
-			marginLeft: '5px',
-			color: 'white',
-		}}
-		spin
-	/>
-);
-
 export default function RegisterPage() {
-	const [api, contextHolder] = notification.useNotification();
 	const [isLoad, setIsLoad] = React.useState<boolean>(false);
 	const [isHover, setIsHover] = React.useState<boolean>(false);
 	const [avatar, setAvatar] = React.useState<string>('');
@@ -56,17 +44,40 @@ export default function RegisterPage() {
 	}, []);
 
 	const openNotificationWithIcon = (type: NotificationType, content: string) => {
-		api[type]({
-			message: content,
-		});
+		if (type === 'success')
+			toast.success(content, {
+				position: 'bottom-right',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				progress: undefined,
+				theme: 'light',
+			});
+		else
+			toast.error(content, {
+				position: 'top-right',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				progress: undefined,
+				theme: 'light',
+			});
 	};
 
-	const onFinishForm = async (values: { name: string; email: string; sex: number }) => {
+	const onFinishForm = async (e: React.SyntheticEvent) => {
+		e.preventDefault();
+		const target = e.target as typeof e.target & {
+			email: { value: string };
+			name: { value: string };
+			sex: { value: number };
+		};
 		await setIsLoad(true);
 		await userApi
 			.updateInformation({
-				name: values.name,
-				email: values.email,
+				name: target.name.value,
+				email: target.email.value,
 				avatarUrl: avatar,
 			})
 			.then(() => {
@@ -90,9 +101,10 @@ export default function RegisterPage() {
 
 	return (
 		<RegisterComponent>
-			{contextHolder}
+			<ToastContainer />
 			{user && (
 				<div className='container'>
+					<h3 style={{ textAlign: 'center' }}>Update Your Account</h3>
 					<div
 						className='avatar'
 						onMouseEnter={() => setIsHover(true)}
@@ -100,72 +112,95 @@ export default function RegisterPage() {
 					>
 						<img src={avatar} alt='avatar' />
 						{isHover && (
-							<button onClick={() => setIsModal(true)}>
+							<button onClick={() => openNotificationWithIcon('success', 'test')}>
 								<CameraOutlined style={{ marginRight: '5px' }} /> Change
 							</button>
 						)}
 					</div>
-					<Form name='basic' onFinish={onFinishForm} autoComplete='off'>
-						<span>
+					<form onSubmit={onFinishForm}>
+						<p>
 							<span style={{ color: 'red' }}>*</span>
 							Name
-						</span>
-						<Form.Item
-							name='name'
-							rules={[{ required: true, message: 'Please input your name!' }]}
+						</p>
+						<Input
+							placeholder='Input your name'
+							required
 							initialValue={user?.name}
-						>
-							<Input placeholder='Input your name' />
-						</Form.Item>
-
-						<span>
-							<span style={{ color: 'red' }}>*</span>
-							Sex
-						</span>
-						<Form.Item
-							name='sex'
-							rules={[{ required: true, message: 'Please choose your sex!' }]}
-							initialValue={0}
-						>
-							<Select placeholder='Select'>
-								<Option value={0}>Male</Option>
-								<Option value={1}>Female</Option>
-								<Option value={2}>Other</Option>
-							</Select>
-						</Form.Item>
-
-						<span>
+							bordered
+							color='primary'
+							width='100%'
+							name='name'
+						/>
+						<Spacer y={1} />
+						<p>
 							<span style={{ color: 'red' }}>*</span>
 							Email
-						</span>
-						<Form.Item name='email' initialValue={user?.email}>
-							<Input type='email' readOnly={true} />
-						</Form.Item>
-
-						<Form.Item className='cancel-btn'>
-							<Button disabled={isLoad} danger onClick={() => navigate('/homepage')}>
+						</p>
+						<Input
+							type='email'
+							readOnly
+							initialValue={user?.email}
+							bordered
+							color='primary'
+							width='100%'
+							name='email'
+						/>
+						<Spacer y={1} />
+						<Grid.Container style={{ fontSize: '16px' }} justify='center'>
+							<Button
+								bordered
+								color='error'
+								auto
+								style={{ margin: '5px' }}
+								onClick={() => navigate('/')}
+							>
 								Cancel
 							</Button>
-						</Form.Item>
-						<Form.Item className='update-btn'>
-							<Button type='primary' htmlType='submit' disabled={isLoad}>
-								Update {isLoad && <Spin indicator={antIcon} />}
+							<Button type='submit' auto style={{ margin: '5px' }}>
+								{isLoad && (
+									<Loading
+										type='default'
+										color='white'
+										size='sm'
+										style={{ marginRight: '5px' }}
+									/>
+								)}
+								Update
 							</Button>
-						</Form.Item>
-					</Form>
+						</Grid.Container>
+					</form>
 					<Modal
-						title='Change avatar'
+						closeButton
+						aria-labelledby='modal-title'
 						open={isModal}
-						onOk={onFinishModal}
-						onCancel={onCancelModal}
-						centered
+						onClose={onCancelModal}
 					>
-						<Input
-							onChange={(e) => setTemporal(e.target.value)}
-							value={temporal}
-							placeholder='Url image'
-						/>
-						{temporal && temporal.trim() !== '' && <Image src={temporal} />}
+						<Modal.Header>
+							<Text id='modal-title' size={18}>
+								Change avatar
+							</Text>
+						</Modal.Header>
+						<Modal.Body>
+							<Input
+								clearable
+								bordered
+								fullWidth
+								color='primary'
+								size='lg'
+								placeholder='Avatar url'
+								onChange={(e) => setTemporal(e.target.value)}
+								initialValue={temporal}
+							/>
+							{temporal && temporal.trim() !== '' && <Image src={temporal} />}
+						</Modal.Body>
+						<Modal.Footer>
+							<Button auto flat color='error' onPress={onCancelModal}>
+								Close
+							</Button>
+							<Button auto onPress={onFinishModal}>
+								Save
+							</Button>
+						</Modal.Footer>
 					</Modal>
 				</div>
 			)}
