@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ErrorPage from '../pages/Error';
 import HomePage from '../pages/Home';
+import RegisterPage from '../pages/Register';
 import SearchPage from '../pages/Search';
 import Welcome from '../pages/Welcome';
 import Auth from '../utils/hooks/useAuth';
@@ -26,6 +27,11 @@ const publicRoute: Array<Record<string, any>> = [
 		path: 'search',
 		exact: true,
 		component: <SearchPage />,
+	},
+	{
+		path: 'register',
+		exact: true,
+		component: <RegisterPage />,
 	},
 ];
 
