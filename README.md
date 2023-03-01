@@ -1,6 +1,17 @@
 # Pentube
 A small project showing video for everyone. Inspired from youtube.
 
+## Road path
+
+- [x] Homepage
+- [x] Watch video
+- [x] Search video
+- [x] Login and registry with google
+- [ ] Share video 
+- [ ] Like video
+- [ ] Channel dashboard
+- [ ] Analysic video by location
+
 ## A Quick Look 
 Checkout our demo [here](https://pen-tube-frontend.vercel.app/)
 
