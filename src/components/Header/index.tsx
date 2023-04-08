@@ -1,21 +1,34 @@
-import { MutableRefObject, Ref, RefAttributes, useContext, useRef } from 'react';
+import { MutableRefObject, Ref, RefAttributes, useContext, useRef, useEffect, Key } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
 import { API_URL } from '../../config';
+import useUserStore from '../../storage/useUserStore';
 import { auth } from '../../utils/apis/auth';
+import userApi from '../../utils/apis/user.api';
 import { authContext } from '../../utils/hooks/useAuth';
 import usePersistedState from '../../utils/hooks/usePersistedState';
 import useSearch from '../../utils/hooks/useSearch';
 import SearchButton from './SearchButton';
 
-import { Button, FormElement, Grid, Input, Link, Navbar, Text } from '@nextui-org/react';
+import {
+	Avatar,
+	Button,
+	Dropdown,
+	FormElement,
+	Grid,
+	Input,
+	Link,
+	Navbar,
+	Text,
+} from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 
 const Header = () => {
 	const { search, searchRef, onSearch } = useSearch();
 	const navigate = useNavigate();
 	const authToken = useContext(authContext);
+	const user = useUserStore((state) => state.user);
 	const [t] = useTranslation('common'); // namespace translation
 	const [token, setToken] = usePersistedState<string>('token');
 	const [refreshToken, setRefreshToken] = usePersistedState<string>('refreshToken');
@@ -26,6 +39,23 @@ const Header = () => {
 			navigate(0);
 		});
 	};
+	const handleAction = (key: Key) => {
+		switch (key) {
+			case 'logout':
+				logout();
+				break;
+			default:
+				break;
+		}
+	};
+	useEffect(() => {
+		const getUser = async () => {
+			await userApi.getInformation().then((res) => {
+				useUserStore.setState({ user: res.data });
+			});
+		};
+		getUser();
+	}, []);
 	return (
 		<Navbar
 			maxWidth='fluid'
@@ -74,19 +104,38 @@ const Header = () => {
 								{t('button.login')}
 							</Button>
 						</Navbar.Item>
-						<Navbar.Item>
-							<Button color='primary' auto>
-								{t('button.sign_up')}
-							</Button>
-						</Navbar.Item>
 					</>
 				)}
 				{authToken && (
 					<>
 						<Navbar.Item>
-							<Button bordered auto onPress={logout}>
-								{t('button.logout')}
-							</Button>
+							<Grid.Container>
+								<Grid>
+									<Dropdown>
+										<Dropdown.Trigger>
+											<Avatar
+												src={user?.avatarUrl}
+												size='lg'
+												as='button'
+												bordered
+												color='secondary'
+												css={{
+													borderRadius: '50%',
+													margin: '0 10px',
+													':hover': {
+														cursor: 'pointer',
+													},
+												}}
+											/>
+										</Dropdown.Trigger>
+										<Dropdown.Menu onAction={(key: Key) => handleAction(key)}>
+											<Dropdown.Item key='logout' color='error'>
+												{t('button.logout')}
+											</Dropdown.Item>
+										</Dropdown.Menu>
+									</Dropdown>
+								</Grid>
+							</Grid.Container>
 						</Navbar.Item>
 					</>
 				)}
