@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { Video } from '../../../utils/dto/video';
 import { RecommendComponent } from './styles';
 
+import { Grid, Text, theme } from '@nextui-org/react';
+
 export default function RecommendVideo({ video }: { video: Video }) {
 	const navigate = useNavigate();
 
@@ -19,13 +21,13 @@ export default function RecommendVideo({ video }: { video: Video }) {
 			</div>
 
 			<div className='content'>
-				<p className='title-ref'>{video.title}</p>
-				<p className='channel'>{video.channel.name}</p>
-				<p className='views'>
+				<Text h5>{video.title}</Text>
+				<Text>{video.channel.name}</Text>
+				<Text color={theme.colors.accents6.value}>
 					{video.totalViews} views
 					<span style={{ margin: '0 10px' }}>•</span>
 					{moment(new Date(video.createdAt)).fromNow()}
-				</p>
+				</Text>
 			</div>
 		</RecommendComponent>
 	);
