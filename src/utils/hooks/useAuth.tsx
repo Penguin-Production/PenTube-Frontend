@@ -2,6 +2,7 @@ import { createContext, useEffect } from 'react';
 
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
+import useUserStore from '../../storage/useUserStore';
 import usePersistedState from './usePersistedState';
 
 export const authContext = createContext<string>('');
@@ -13,6 +14,7 @@ const Auth = (props: Props) => {
 	const { children } = props;
 	const [searchParams, setSearchParams] = useSearchParams();
 	const navigate = useNavigate();
+	const user = useUserStore((state) => state.user);
 	const [token, setToken] = usePersistedState<string>('token');
 	const [refreshToken, setRefreshToken] = usePersistedState<string>('refreshToken');
 
@@ -25,7 +27,7 @@ const Auth = (props: Props) => {
 			setRefreshToken(refreshTokenParam);
 			searchParams.delete('token');
 			searchParams.delete('refreshToken');
-			navigate('/');
+			setSearchParams(searchParams);
 			navigate(0);
 		}
 	}, [location]);
