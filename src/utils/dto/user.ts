@@ -4,8 +4,5 @@ export type User = {
 	name: string;
 	role: string;
 	status: StringMap;
+	avatarUrl: string;
 };
-
-export class UserDTO {
-	constructor(name: string, role: string, status: string) {}
-}
