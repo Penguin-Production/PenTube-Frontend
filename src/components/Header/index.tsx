@@ -19,8 +19,8 @@ import {
 	Grid,
 	Input,
 	Link,
-	Navbar,
 	Text,
+	Navbar,
 } from '@nextui-org/react';
 import { useTranslation } from 'react-i18next';
 
@@ -66,7 +66,7 @@ const Header = () => {
 		>
 			<Navbar.Brand>
 				<Text b color='inherit'>
-					<Link href='/' color='inherit'>
+					<Link href='/' color={'default'}>
 						PENTUBE
 					</Link>
 				</Text>
