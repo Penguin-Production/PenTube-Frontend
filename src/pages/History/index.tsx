@@ -19,7 +19,7 @@ export const HistoryPage = () => {
 
   return (
     <div>
-        <h3 className='text-5xl' style={{marginTop: "3vh", fontSize: "40px"}}>Watch history</h3>
+        <h3 className='text-5xl' style={{marginTop: "3vh", fontSize: "35px", marginBottom: "-0.5vh"}}>Watch history</h3>
         <div>
            {videos.map((video, index) => {
             return(<VideoItem key={index} video={video}/>)

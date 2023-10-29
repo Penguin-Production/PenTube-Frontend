@@ -4,7 +4,7 @@ export const RecommendComponent = styled.a`
 	display: grid;
 	grid-template-columns: 50% 50%;
 	justify-content: space-between;
-	margin: 0.5rem 1rem 0 1rem;
+	margin: 1rem 1rem 2rem 1rem;
 	text-align: left;
 	cursor: pointer;
 	color: black;
@@ -43,7 +43,7 @@ export const RecommendComponent = styled.a`
 		overflow: hidden;
 		border-radius: 20px;
 		width: 20vw;
-		margin-left: -5vw;
+		margin-left: 0vw;
 	}
 	.title-ref {
 		font-size: 20px;
@@ -58,7 +58,7 @@ export const RecommendComponent = styled.a`
 		line-height: 22px;
 	}
 	.content {
-		margin-left: -5vw;
+		margin-left: 0vw;
 		margin-bottom: 10%;
 	}
 `;

@@ -30,7 +30,7 @@ function VideoItem(props: Iprops) {
 	}, [videoId]);
 	return (
 		<div>
-			<div style={{marginLeft: "30%", marginRight: "25%"}}>
+			<div style={{marginLeft: "28%", marginRight: "28%", boxShadow: "1px 1px 5px 5px rgba(0, 0, 0, 0.2)", borderRadius: "10px"}}>
 				{video && (
 					<RecommendComponent onClick={() => navigate(`/watch/${video._id}`)}>
 						<div className='img-container'>
