@@ -12,6 +12,7 @@ import PrivateRoute from './privateRoute';
 import PublicRoute from './publicRoute';
 
 import { StringMap } from 'i18next';
+import { HistoryPage } from '../pages/History';
 
 const publicRoute: Array<Record<string, any>> = [
 	{
@@ -38,6 +39,11 @@ const publicRoute: Array<Record<string, any>> = [
 		path: 'register',
 		exact: true,
 		component: <RegisterPage />,
+	},
+	{
+		path: 'history',
+		exact: true,
+		component: <HistoryPage />,
 	},
 ];
 

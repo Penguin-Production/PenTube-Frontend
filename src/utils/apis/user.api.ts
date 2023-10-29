@@ -18,6 +18,14 @@ const userApi = {
 		const response = await post('/user/update', body, {}, { Authorization: 'Bearer ' + token });
 		return response.data;
 	},
+	updateHistory: async (id: string) => {
+		const token = LocalStorageUtils.getItem('token');
+		const body = {
+			videoId: id
+		}
+		const response = await post('/user/update-histories', body, {}, { Authorization: 'Bearer ' + token });
+		return response.data;
+	}
 };
 
 export default userApi;
