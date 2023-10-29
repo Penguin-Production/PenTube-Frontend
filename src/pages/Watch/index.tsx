@@ -19,6 +19,7 @@ import {
 	ShareAltOutlined,
 } from '@ant-design/icons';
 import { Avatar, Button, Spacer, Textarea } from '@nextui-org/react';
+import userApi from '../../utils/apis/user.api';
 
 interface CommentItem {
 	author: string;
@@ -55,6 +56,8 @@ export default function WatchVideo() {
 
 	React.useEffect(() => {
 		if (!id) navigate('/');
+		id && userApi.updateHistory(id);
+		console.log(id);
 		videoApi
 			.getById(id || '')
 			.then((video) => setVideo(video.data))
