@@ -6,6 +6,7 @@ import { API_URL } from '../../config';
 import useUserStore from '../../storage/useUserStore';
 import { auth } from '../../utils/apis/auth';
 import userApi from '../../utils/apis/user.api';
+import { LocalStorageUtils } from '../../utils/helper/localStorage';
 import { authContext } from '../../utils/hooks/useAuth';
 import usePersistedState from '../../utils/hooks/usePersistedState';
 import useSearch from '../../utils/hooks/useSearch';
@@ -33,16 +34,19 @@ const Header = () => {
 	const [token, setToken] = usePersistedState<string>('token');
 	const [refreshToken, setRefreshToken] = usePersistedState<string>('refreshToken');
 	const logout = async () => {
-		await auth.logout(token, refreshToken).then(() => {
-			setToken('');
-			setRefreshToken('');
-			navigate(0);
-		});
+		await auth.logout(token, refreshToken).catch((err) => console.log(err));
+		LocalStorageUtils.removeItem('user');
+		setToken('');
+		setRefreshToken('');
+		navigate(0);
 	};
 	const handleAction = (key: Key) => {
 		switch (key) {
 			case 'logout':
 				logout();
+				break;
+			case 'channel':
+				navigate('/channels/me');
 				break;
 			default:
 				break;
@@ -129,6 +133,9 @@ const Header = () => {
 											/>
 										</Dropdown.Trigger>
 										<Dropdown.Menu onAction={(key: Key) => handleAction(key)}>
+											<Dropdown.Item key='channel' color='primary'>
+												Your channels
+											</Dropdown.Item>
 											<Dropdown.Item key='logout' color='error'>
 												{t('button.logout')}
 											</Dropdown.Item>

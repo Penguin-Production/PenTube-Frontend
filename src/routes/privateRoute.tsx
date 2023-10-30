@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
+import useUserStore from '../storage/useUserStore';
 import { User } from '../utils/dto/user';
 import usePersistedState from '../utils/hooks/usePersistedState';
 
@@ -9,9 +10,8 @@ type props = {
 
 // we may not use the role attribute
 const PrivateRoute = (props: props) => {
-	const { role } = props;
-	const [user, setUser] = usePersistedState<User>('user', {} as User);
-	if (user.role === role) {
+	const { user } = useUserStore();
+	if (user) {
 		return <Outlet />;
 	}
 	return <Navigate to='/' />;
