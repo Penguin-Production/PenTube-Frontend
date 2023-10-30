@@ -1,3 +1,7 @@
+import { create } from 'zustand';
+
+import { User } from './user';
+
 export interface Video {
 	_id: string;
 	title: string;
@@ -8,16 +12,24 @@ export interface Video {
 	status: string;
 	key: string | null;
 	views: any[];
-	like: any[];
-	dislike: any[];
+	likes: any[];
+	dislikes: any[];
 	channel: {
 		_id: string;
 		name: string;
 		avatar: string;
 	};
+	comments: Comment[];
 	totalViews: number;
 	thumbnail: string;
 	createdAt: string;
 	updatedAt: string;
 	score: number;
+}
+
+export interface Comment {
+	_id: string;
+	content: string;
+	authorId: User;
+	createdAt: Date;
 }

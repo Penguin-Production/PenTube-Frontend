@@ -1,12 +1,8 @@
 import { useEffect } from 'react';
 
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-
 import useVideoStore from '../../storage/useVideoStore';
 import videoApi from '../../utils/apis/videoApi';
 import { Video } from '../../utils/dto/video';
-import usePersistedState from '../../utils/hooks/usePersistedState';
-import useSearch from '../../utils/hooks/useSearch';
 import CardItem from './CardItem';
 
 import { Card, Container, Grid, Loading, Text } from '@nextui-org/react';

@@ -6,6 +6,7 @@ import { API_URL } from '../../config';
 import useUserStore from '../../storage/useUserStore';
 import { auth } from '../../utils/apis/auth';
 import userApi from '../../utils/apis/user.api';
+import { LocalStorageUtils } from '../../utils/helper/localStorage';
 import { authContext } from '../../utils/hooks/useAuth';
 import usePersistedState from '../../utils/hooks/usePersistedState';
 import useSearch from '../../utils/hooks/useSearch';
@@ -33,11 +34,10 @@ const Header = () => {
 	const [token, setToken] = usePersistedState<string>('token');
 	const [refreshToken, setRefreshToken] = usePersistedState<string>('refreshToken');
 	const logout = async () => {
-		await auth.logout(token, refreshToken).then(() => {
-			setToken('');
-			setRefreshToken('');
-			navigate(0);
-		});
+		await auth.logout(token, refreshToken).catch((err) => console.log(err));
+		setToken('');
+		setRefreshToken('');
+		navigate(0);
 	};
 	const handleAction = (key: Key) => {
 		switch (key) {
@@ -60,7 +60,7 @@ const Header = () => {
 		<Navbar
 			maxWidth='fluid'
 			variant='sticky'
-			css={{ zIndex: 1000 }}
+			css={{ zIndex: 1000, border: 'none' }}
 			containerCss={{ display: 'flex' }}
 			shouldHideOnScroll
 		>
