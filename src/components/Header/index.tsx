@@ -39,10 +39,16 @@ const Header = () => {
 		setRefreshToken('');
 		navigate(0);
 	};
+	const history = async () => {
+		window.location.href = '/history';
+	};
 	const handleAction = (key: Key) => {
 		switch (key) {
 			case 'logout':
 				logout();
+				break;
+			case 'history':
+				history();
 				break;
 			default:
 				break;
@@ -129,6 +135,9 @@ const Header = () => {
 											/>
 										</Dropdown.Trigger>
 										<Dropdown.Menu onAction={(key: Key) => handleAction(key)}>
+											<Dropdown.Item key='history' color='default'>
+												History
+											</Dropdown.Item>
 											<Dropdown.Item key='logout' color='error'>
 												{t('button.logout')}
 											</Dropdown.Item>

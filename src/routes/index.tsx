@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Layout from '../components/Layout';
 import ErrorPage from '../pages/Error';
+import { HistoryPage } from '../pages/History';
 import HomePage from '../pages/Home';
 import RegisterPage from '../pages/Register';
 import SearchPage from '../pages/Search';
@@ -38,6 +39,11 @@ const publicRoute: Array<Record<string, any>> = [
 		path: 'register',
 		exact: true,
 		component: <RegisterPage />,
+	},
+	{
+		path: 'history',
+		exact: true,
+		component: <HistoryPage />,
 	},
 ];
 

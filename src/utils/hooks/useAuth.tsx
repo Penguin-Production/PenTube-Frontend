@@ -25,10 +25,10 @@ const Auth = (props: Props) => {
 		if (tokenParam && refreshTokenParam) {
 			setToken(tokenParam);
 			setRefreshToken(refreshTokenParam);
-			searchParams.delete('token');
-			searchParams.delete('refreshToken');
-			setSearchParams(searchParams);
-			navigate(0);
+			// searchParams.delete('token');
+			// searchParams.delete('refreshToken');
+			// setSearchParams(searchParams);
+			window.location.href = '/';
 		}
 	}, [location]);
 	return <authContext.Provider value={token}>{children}</authContext.Provider>;

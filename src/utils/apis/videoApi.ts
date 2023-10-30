@@ -1,4 +1,4 @@
-import { Comment, Video } from '../dto/video';
+import { Video } from '../dto/video';
 import { LocalStorageUtils } from '../helper/localStorage';
 import { ResponseModal } from './../dto/response';
 import { get, post, put } from './../helper/apiCaller';
@@ -19,6 +19,7 @@ export type VideoApi = {
 	getComments: (id: string) => Promise<ResponseModal<Comment[]>>;
 	updateLike: (id: string, userId: string) => Promise<ResponseModal<Video>>;
 	deleteComment: (id: string, commentId: string) => Promise<ResponseModal<Video>>;
+	getHistory: () => Promise<ResponseModal<Array<Video>>>;
 };
 
 const token = LocalStorageUtils.getItem('token');
@@ -55,6 +56,12 @@ const videoApi: VideoApi = {
 		const endpoint = `/video/${id}/comments/${commentId}`;
 		return await put(endpoint, {}, {}, { Authorization: 'Bearer ' + token }).then(
 			(response): ResponseModal<Video> => response.data
+		);
+	},
+	getHistory: async () => {
+		const endpoint = `/user/histories`;
+		return await get(endpoint, {}, { Authorization: 'Bearer ' + token }).then(
+			(response): ResponseModal<Array<Video>> => response.data
 		);
 	},
 };

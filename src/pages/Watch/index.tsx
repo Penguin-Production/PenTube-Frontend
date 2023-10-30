@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import useUserStore from '../../storage/useUserStore';
 import useVideoStore from '../../storage/useVideoStore';
+import userApi from '../../utils/apis/user.api';
 import videoApi from '../../utils/apis/videoApi';
 import { Video } from '../../utils/dto/video';
 import { useFetchComments } from '../../utils/hooks/useGetComment';
@@ -41,6 +42,8 @@ export default function WatchVideo() {
 
 	React.useEffect(() => {
 		if (!id) navigate('/');
+		id && userApi.updateHistory(id);
+		console.log(id);
 		videoApi
 			.getById(id || '')
 			.then((video) => videoStore.setVideoDetail(video.data))
