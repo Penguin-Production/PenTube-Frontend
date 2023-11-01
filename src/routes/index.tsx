@@ -10,9 +10,10 @@ import Welcome from '../pages/Welcome';
 import Auth from '../utils/hooks/useAuth';
 import PrivateRoute from './privateRoute';
 import PublicRoute from './publicRoute';
-
+import UserProfilePage from '../pages/UserProfile';
 import { StringMap } from 'i18next';
 import { HistoryPage } from '../pages/History';
+
 
 const publicRoute: Array<Record<string, any>> = [
 	{
@@ -51,7 +52,8 @@ const privateRoute: Array<Record<string, any>> = [
 	{
 		role: 'user',
 		// TODO: path and route just for testing, change it if needed
-		routes: [{ path: '/user/home', exact: true, component: <HomePage /> }],
+		routes: [{ path: '/user/home', exact: true, component: <HomePage /> },
+		{ path: '/user/userProfile', exact: true, component: <UserProfilePage /> }],
 	},
 	{
 		role: 'admin',
