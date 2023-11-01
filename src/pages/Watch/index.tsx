@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import useVideoStore from '../../storage/useVideoStore';
+import userApi from '../../utils/apis/user.api';
 import videoApi from '../../utils/apis/videoApi';
 import { Video } from '../../utils/dto/video';
 import RecommendVideo from './RecommendVideo';
@@ -19,7 +20,6 @@ import {
 	ShareAltOutlined,
 } from '@ant-design/icons';
 import { Avatar, Button, Spacer, Textarea } from '@nextui-org/react';
-import userApi from '../../utils/apis/user.api';
 
 interface CommentItem {
 	author: string;
@@ -101,7 +101,7 @@ export default function WatchVideo() {
 					<p className='title'>{video?.title}</p>
 					<div className='channel-container'>
 						<div className='channel'>
-							<Avatar zoomed src={video?.channel.avatar} alt='avatar' />
+							<Avatar zoomed src={video?.channel.imageUrl} alt='avatar' />
 							<div>
 								<p style={{ fontWeight: '500' }}>{video?.channel.name}</p>
 								<p className='sl-sub'>

@@ -2,6 +2,7 @@ declare interface LocalStorageUtils<T> {
 	getItem: (key: string) => T | null;
 	setItem: (key: string, value: T) => void;
 	removeItem: (key: string) => boolean;
+	clear: () => void;
 }
 
 export const LocalStorageUtils: LocalStorageUtils<any> = {
@@ -17,5 +18,8 @@ export const LocalStorageUtils: LocalStorageUtils<any> = {
 	removeItem: (key) => {
 		localStorage.removeItem(key);
 		return true;
+	},
+	clear: () => {
+		localStorage.clear();
 	},
 };

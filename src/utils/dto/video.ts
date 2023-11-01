@@ -13,7 +13,7 @@ export interface Video {
 	channel: {
 		_id: string;
 		name: string;
-		avatar: string;
+		imageUrl: string;
 	};
 	totalViews: number;
 	thumbnail: string;

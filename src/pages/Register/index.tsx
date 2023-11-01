@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import userApi from '../../utils/apis/user.api';
 import { LocalStorageUtils } from '../../utils/helper/localStorage';
@@ -9,7 +9,6 @@ import { RegisterComponent } from './styles';
 
 import { CameraOutlined } from '@ant-design/icons/lib/icons';
 import { Modal, Button, Text, Input, Image, Grid, Spacer, Loading } from '@nextui-org/react';
-import 'react-toastify/dist/ReactToastify.css';
 
 type UserType = {
 	name: string;
@@ -47,7 +46,7 @@ export default function RegisterPage() {
 	const openNotificationWithIcon = (type: NotificationType, content: string) => {
 		if (type === 'success')
 			toast.success(content, {
-				position: 'bottom-right',
+				position: 'top-right',
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
@@ -102,7 +101,6 @@ export default function RegisterPage() {
 
 	return (
 		<RegisterComponent>
-			<ToastContainer />
 			{user && (
 				<div className='container'>
 					<h3 style={{ textAlign: 'center' }}>Update Your Account</h3>

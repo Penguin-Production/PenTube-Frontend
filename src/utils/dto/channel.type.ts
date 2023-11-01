@@ -7,3 +7,8 @@ export type CHANNEL_TYPE = {
 	imageUrl: string;
 	subscriber: Array<string | User>;
 };
+
+export type FORM_CHANNEL_TYPE = {
+	name: string;
+	imageUrl: string;
+};

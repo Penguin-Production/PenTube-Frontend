@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Layout from '../components/Layout';
 import ListChannel from '../pages/Channel';
+import DetailChannel from '../pages/Channel/components/detailChannel';
 import ErrorPage from '../pages/Error';
 import { HistoryPage } from '../pages/History';
 import HomePage from '../pages/Home';
@@ -45,6 +46,11 @@ const publicRoute: Array<Record<string, any>> = [
 		path: 'history',
 		exact: true,
 		component: <HistoryPage />,
+	},
+	{
+		path: 'channels/channel/:id',
+		exact: true,
+		component: <DetailChannel />,
 	},
 ];
 

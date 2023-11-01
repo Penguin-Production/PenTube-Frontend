@@ -12,6 +12,10 @@ const ChannelApi = {
 		const response = await get('/channels', {}, { Authorization: 'Bearer ' + token });
 		return response.data;
 	},
+	getChannelById: async (id: string) => {
+		const response = await get(`/channels/${id}`, {}, {});
+		return response.data;
+	},
 	createChannel: async (body: ChannelType) => {
 		const token = LocalStorageUtils.getItem('token');
 		const response = await post('/channels', body, {}, { Authorization: 'Bearer ' + token });
@@ -35,6 +39,10 @@ const ChannelApi = {
 			{ Authorization: 'Bearer ' + token }
 		);
 		return response.data;
+	},
+	subscribeChannel: async (channelId: string) => {
+		const token = LocalStorageUtils.getItem('token');
+		return await post(`/channels/${channelId}`, {}, {}, { Authorization: 'Bearer ' + token });
 	},
 };
 
