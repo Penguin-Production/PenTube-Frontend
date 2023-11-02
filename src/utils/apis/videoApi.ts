@@ -1,4 +1,4 @@
-import { Video } from '../dto/video';
+import { Comment, Video } from '../dto/video';
 import { LocalStorageUtils } from '../helper/localStorage';
 import { ResponseModal } from './../dto/response';
 import { get, post, put } from './../helper/apiCaller';
