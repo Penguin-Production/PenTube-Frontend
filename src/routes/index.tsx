@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Layout from '../components/Layout';
 import ErrorPage from '../pages/Error';
+import { HistoryPage } from '../pages/History';
 import HomePage from '../pages/Home';
 import RegisterPage from '../pages/Register';
 import SearchPage from '../pages/Search';
@@ -12,7 +13,6 @@ import PrivateRoute from './privateRoute';
 import PublicRoute from './publicRoute';
 
 import { StringMap } from 'i18next';
-import { HistoryPage } from '../pages/History';
 
 const publicRoute: Array<Record<string, any>> = [
 	{

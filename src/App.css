@@ -1,11 +1,10 @@
 @tailwind base;
-@tailwind utilities;
 @tailwind components;
-
+@tailwind utilities;
 #root {
 	margin: 0 auto;
 	text-align: center;
-	font-family: "YouTube Sans", "Roboto", sans-serif;
+	font-family: 'YouTube Sans', 'Roboto', sans-serif;
 }
 
 .logo {
@@ -13,11 +12,9 @@
 	padding: 1.5em;
 	will-change: filter;
 }
-
 .logo:hover {
 	filter: drop-shadow(0 0 2em #646cffaa);
 }
-
 .logo.react:hover {
 	filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -26,7 +23,6 @@
 	from {
 		transform: rotate(0deg);
 	}
-
 	to {
 		transform: rotate(360deg);
 	}

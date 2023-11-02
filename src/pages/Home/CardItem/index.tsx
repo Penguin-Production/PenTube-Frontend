@@ -23,6 +23,7 @@ const CardItem = (props: props) => {
 	return (
 		<Card
 			isPressable
+			className='shadow border-none'
 			isHoverable
 			css={{ w: 'stretch' }}
 			onClick={() => navigate(`watch/${video._id}`)}
