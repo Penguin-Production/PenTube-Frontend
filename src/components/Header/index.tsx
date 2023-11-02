@@ -84,10 +84,7 @@ const Header = () => {
 					</Link>
 				</Text>
 			</Navbar.Brand>
-			<Navbar.Content
-				css={{ w: '100%', justifyContent: 'center', padding: '$10' }}
-				hideIn={'xs'}
-			>
+			<Navbar.Content css={{ w: '100%', justifyContent: 'center', padding: '$10' }} hideIn={'xs'}>
 				<Navbar.Item
 					css={{
 						flexBasis: '500px',

@@ -37,24 +37,32 @@ export default function WatchVideo() {
 	const { user } = useUserStore();
 	const [likeLoading, setLikeLoading] = React.useState(false);
 	const [showMore, setShowMore] = React.useState(false);
+	const [listComment, setListComment] = React.useState<CommentItem[]>(fakeComment);
+	const [mess, setMess] = React.useState<string>('');
+	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const videoStore = useVideoStore();
 	const { videoDetail: video } = videoStore;
 
 	React.useEffect(() => {
 		if (!id) navigate('/');
 		id && userApi.updateHistory(id);
-		console.log(id);
-		videoApi
-			.getById(id || '')
-			.then((video) => videoStore.setVideoDetail(video.data))
-			.catch(() => navigate('/'));
-		const getVideo = async () => {
-			const res = await videoApi.getAll();
-			videoStore.setVideo(res.data || []);
-			return res;
+		const fetchData = async () => {
+			setIsLoading(true);
+			await videoApi
+				.getById(id || '')
+				.then((video) => videoStore.setVideoDetail(video.data))
+				.catch(() => navigate('/'))
+				.finally(() => setIsLoading(false));
+			const getVideo = async () => {
+				const res = await videoApi.getAll();
+				videoStore.setVideo(res.data || []);
+				return res;
+			};
+
+			if (videoStore.videos.length === 0) getVideo();
 		};
 
-		if (videoStore.videos.length === 0) getVideo();
+		fetchData();
 	}, [id]);
 
 	const handleLike = async () => {
@@ -66,9 +74,7 @@ export default function WatchVideo() {
 			await videoApi
 				.updateLike(video?._id || '', user?._id || '')
 				.then(async () => {
-					await videoApi
-						.getById(id || '')
-						.then((video) => videoStore.setVideoDetail(video.data));
+					await videoApi.getById(id || '').then((video) => videoStore.setVideoDetail(video.data));
 				})
 				.finally(() => setLikeLoading(false));
 		} catch (e) {
@@ -85,6 +91,7 @@ export default function WatchVideo() {
 
 	useFetchComments();
 
+	if (isLoading) return <Loading type='gradient' />;
 	return (
 		<WatchComponent>
 			{video && (
@@ -109,25 +116,16 @@ export default function WatchVideo() {
 								<Avatar zoomed src={video?.channel.avatar} alt='avatar' />
 								<div>
 									<p style={{ fontWeight: '500' }}>{video?.channel.name}</p>
-									<p className='sl-sub'>
-										{Math.round(Math.random() * 100)} subscribers
-									</p>
+									<p className='sl-sub'>{Math.round(Math.random() * 100)} subscribers</p>
 								</div>
 							</div>
-							<Button
-								auto
-								style={{ fontWeight: '500', fontSize: 'inherit' }}
-								disabled={!user}
-							>
+							<Button auto style={{ fontWeight: '500', fontSize: 'inherit' }} disabled={!user}>
 								Subscribe
 							</Button>
 						</div>
 						<div className='flex flex-row gap-3'>
 							<div className='flex w-full justify-end'>
-								<Tooltip
-									isDisabled={user !== null}
-									content='You must login to like'
-								>
+								<Tooltip isDisabled={user !== null} content='You must login to like'>
 									<Button
 										bordered={!isLiked}
 										auto
@@ -160,9 +158,7 @@ export default function WatchVideo() {
 						</div>
 					</div>
 					<p className='description' style={showMore ? { display: 'block' } : {}}>
-						<b>{`${video?.totalViews} views - ${moment(
-							video?.createdAt
-						).fromNow()}`}</b>
+						<b>{`${video?.totalViews} views - ${moment(video?.createdAt).fromNow()}`}</b>
 						<p>{video?.description}</p>
 						{showMore ? (
 							<button onClick={() => setShowMore(false)}>Hidden</button>
