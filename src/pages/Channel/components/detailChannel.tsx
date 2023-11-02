@@ -30,7 +30,7 @@ export default function DetailChannel() {
 		await videoApi
 			.getAllByChannelId(id)
 			.then((res) => {
-				setListVideo(res.data || []);
+				setListVideo(res.data?.reverse() || []);
 			})
 			.catch((err) => console.log(err));
 		setLoading(false);
@@ -93,8 +93,8 @@ export default function DetailChannel() {
 					)}
 				</div>
 			</div>
-			{channelInfo && <ModalCreateVideo channelId={channelInfo._id} />}
-			<Grid.Container gap={2}>
+			{channelInfo && <ModalCreateVideo channelId={channelInfo._id} refreshData={fetchData} />}
+			<Grid.Container gap={2} css={{ p: 0, mt: 10 }}>
 				{loading ? (
 					<Container css={{ p: 20 }}>
 						<Loading type='gradient' />

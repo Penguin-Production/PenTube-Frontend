@@ -143,7 +143,7 @@ const Header = () => {
 											></div>
 										</Dropdown.Trigger>
 										<Dropdown.Menu onAction={(key: Key) => handleAction(key)}>
-											<Dropdown.Item key='channel' color='primary'>
+											<Dropdown.Item key='channel' color='default'>
 												Your channels
 											</Dropdown.Item>
 											<Dropdown.Item key='profile' color='default'>

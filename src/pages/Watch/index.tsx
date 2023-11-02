@@ -1,11 +1,14 @@
 import React, { useMemo } from 'react';
 
 import moment from 'moment';
+import { AiOutlineReload } from 'react-icons/ai';
 import ReactPlayer from 'react-player';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import useUserStore from '../../storage/useUserStore';
 import useVideoStore from '../../storage/useVideoStore';
+import ChannelApi from '../../utils/apis/channel.api';
 import userApi from '../../utils/apis/user.api';
 import videoApi from '../../utils/apis/videoApi';
 import { Video } from '../../utils/dto/video';
@@ -38,6 +41,7 @@ export default function WatchVideo() {
 	const [likeLoading, setLikeLoading] = React.useState(false);
 	const [showMore, setShowMore] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
+	const [buttonLoading, setButtonLoading] = React.useState<boolean>(false);
 	const videoStore = useVideoStore();
 	const { videoDetail: video } = videoStore;
 
@@ -89,6 +93,35 @@ export default function WatchVideo() {
 
 	useFetchComments();
 
+	const handleToggleSubscribeChannel = async (channelId?: string) => {
+		if (!channelId || !user)
+			toast.error('You need to login to subscribe channel', {
+				position: 'top-right',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				progress: undefined,
+				theme: 'light',
+			});
+		else if (video) {
+			setButtonLoading(true);
+			await ChannelApi.subscribeChannel(channelId)
+				.then(async (res) => {
+					// videoStore.setVideoDetail({ ...video, channel: res.data.data });
+					if (video?.channel?.subscriber?.includes(user?._id ?? 'null')) {
+						video.channel.subscriber = video.channel.subscriber.filter(
+							(item) => item !== user?._id
+						);
+					} else {
+						video.channel.subscriber = [...video.channel.subscriber, user?._id];
+					}
+				})
+				.catch((err) => console.log(err));
+			setButtonLoading(false);
+		}
+	};
+
 	if (isLoading) return <Loading type='gradient' />;
 	return (
 		<WatchComponent>
@@ -113,10 +146,22 @@ export default function WatchVideo() {
 							<Avatar zoomed src={video?.channel.imageUrl} alt='avatar' />
 							<div>
 								<p style={{ fontWeight: '500' }}>{video?.channel.name}</p>
-								<p className='sl-sub'>{Math.round(Math.random() * 100)} subscribers</p>
+								<p className='sl-sub'>{video?.channel?.subscriber?.length} subscribers</p>
 							</div>
-							<Button auto style={{ fontWeight: '500', fontSize: 'inherit' }} disabled={!user}>
-								Subscribe
+							<Button
+								auto
+								style={{ fontWeight: '500', fontSize: 'inherit' }}
+								onClick={() => handleToggleSubscribeChannel(video?.channel._id)}
+								disabled={!user || buttonLoading}
+								bordered={!video?.channel?.subscriber?.includes(user?._id ?? 'null')}
+							>
+								{buttonLoading ? (
+									<AiOutlineReload className='animate-spin text-2xl mx-7' />
+								) : video?.channel?.subscriber?.includes(user?._id ?? 'null') ? (
+									'Unsubscribe'
+								) : (
+									'Subscribe'
+								)}
 							</Button>
 						</div>
 						<div className='flex flex-row gap-3'>
