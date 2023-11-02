@@ -40,6 +40,13 @@ const Header = () => {
 		setRefreshToken('');
 		navigate(0);
 	};
+	const history = async () => {
+		window.location.href = '/history';
+	};
+	const profile = async () => {
+		window.location.href = '/user/userProfile';
+	};
+
 	const handleAction = (key: Key) => {
 		switch (key) {
 			case 'logout':
@@ -47,6 +54,12 @@ const Header = () => {
 				break;
 			case 'channel':
 				navigate('/channels/me');
+				break;
+			case 'history':
+				history();
+				break;
+			case 'profile':
+				profile();
 				break;
 			default:
 				break;
@@ -72,7 +85,7 @@ const Header = () => {
 		<Navbar
 			maxWidth='fluid'
 			variant='sticky'
-			css={{ zIndex: 1000 }}
+			css={{ zIndex: 1000, border: 'none' }}
 			containerCss={{ display: 'flex' }}
 			shouldHideOnScroll
 		>
@@ -83,10 +96,7 @@ const Header = () => {
 					</Link>
 				</Text>
 			</Navbar.Brand>
-			<Navbar.Content
-				css={{ w: '100%', justifyContent: 'center', padding: '$10' }}
-				hideIn={'xs'}
-			>
+			<Navbar.Content css={{ w: '100%', justifyContent: 'center', padding: '$10' }} hideIn={'xs'}>
 				<Navbar.Item
 					css={{
 						flexBasis: '500px',
@@ -135,6 +145,12 @@ const Header = () => {
 										<Dropdown.Menu onAction={(key: Key) => handleAction(key)}>
 											<Dropdown.Item key='channel' color='primary'>
 												Your channels
+											</Dropdown.Item>
+											<Dropdown.Item key='profile' color='default'>
+												Your Profile
+											</Dropdown.Item>
+											<Dropdown.Item key='history' color='default'>
+												History
 											</Dropdown.Item>
 											<Dropdown.Item key='logout' color='error'>
 												{t('button.logout')}

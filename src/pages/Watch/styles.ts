@@ -98,6 +98,12 @@ export const WatchComponent = styled.div`
 		}
 
 		.comment-video {
+			comment-item {
+				transition: all 0.2s linear;
+				&:hover {
+					transform: translateY(-10px);
+				}
+			}
 			padding-right: 20px;
 			.ant-comment-inner {
 				padding: 0;
@@ -232,6 +238,6 @@ export const TextAreaComment = styled.div`
 `;
 export const CommentContainer = styled.div`
 	display: grid;
-	grid-template-columns: 50px auto;
+	grid-template-columns: 50px 50px auto;
 	margin-bottom: 2rem;
 `;

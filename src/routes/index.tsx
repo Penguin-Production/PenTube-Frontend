@@ -8,6 +8,7 @@ import { HistoryPage } from '../pages/History';
 import HomePage from '../pages/Home';
 import RegisterPage from '../pages/Register';
 import SearchPage from '../pages/Search';
+import UserProfilePage from '../pages/UserProfile';
 import WatchVideo from '../pages/Watch';
 import Welcome from '../pages/Welcome';
 import Auth from '../utils/hooks/useAuth';
@@ -42,11 +43,7 @@ const publicRoute: Array<Record<string, any>> = [
 		exact: true,
 		component: <RegisterPage />,
 	},
-	{
-		path: 'history',
-		exact: true,
-		component: <HistoryPage />,
-	},
+
 	{
 		path: 'channels/channel/:id',
 		exact: true,
@@ -61,6 +58,12 @@ const privateRoute: Array<Record<string, any>> = [
 		routes: [
 			{ path: '/user/home', exact: true, component: <HomePage /> },
 			{ path: '/channels/me', exact: true, component: <ListChannel /> },
+			{ path: '/user/userProfile', exact: true, component: <UserProfilePage /> },
+			{
+				path: '/history',
+				exact: true,
+				component: <HistoryPage />,
+			},
 		],
 	},
 	{
