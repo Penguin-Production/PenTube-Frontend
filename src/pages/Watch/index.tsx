@@ -37,8 +37,6 @@ export default function WatchVideo() {
 	const { user } = useUserStore();
 	const [likeLoading, setLikeLoading] = React.useState(false);
 	const [showMore, setShowMore] = React.useState(false);
-	const [listComment, setListComment] = React.useState<CommentItem[]>(fakeComment);
-	const [mess, setMess] = React.useState<string>('');
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const videoStore = useVideoStore();
 	const { videoDetail: video } = videoStore;

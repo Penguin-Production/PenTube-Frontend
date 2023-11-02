@@ -1,7 +1,7 @@
 import { Comment, Video } from '../dto/video';
 import { LocalStorageUtils } from '../helper/localStorage';
 import { ResponseModal } from './../dto/response';
-import { get, post, put } from './../helper/apiCaller';
+import { del, get, post, put } from './../helper/apiCaller';
 
 export interface CommentUpdateType {
 	content?: string;
@@ -54,7 +54,7 @@ const videoApi: VideoApi = {
 	},
 	deleteComment: async (id, commentId) => {
 		const endpoint = `/video/${id}/comments/${commentId}`;
-		return await put(endpoint, {}, {}, { Authorization: 'Bearer ' + token }).then(
+		return await del(endpoint, {}, {}, { Authorization: 'Bearer ' + token }).then(
 			(response): ResponseModal<Video> => response.data
 		);
 	},
