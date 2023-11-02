@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { CHANNEL_TYPE } from './channel.type';
 import { User } from './user';
 
 export interface Video {
@@ -14,11 +15,7 @@ export interface Video {
 	views: any[];
 	likes: any[];
 	dislikes: any[];
-	channel: {
-		_id: string;
-		name: string;
-		avatar: string;
-	};
+	channel: CHANNEL_TYPE;
 	comments: Comment[];
 	totalViews: number;
 	thumbnail: string;

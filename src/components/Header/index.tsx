@@ -35,6 +35,7 @@ const Header = () => {
 	const [refreshToken, setRefreshToken] = usePersistedState<string>('refreshToken');
 	const logout = async () => {
 		await auth.logout(token, refreshToken).catch((err) => console.log(err));
+		LocalStorageUtils.clear();
 		setToken('');
 		setRefreshToken('');
 		navigate(0);
@@ -51,6 +52,9 @@ const Header = () => {
 			case 'logout':
 				logout();
 				break;
+			case 'channel':
+				navigate('/channels/me');
+				break;
 			case 'history':
 				history();
 				break;
@@ -63,12 +67,20 @@ const Header = () => {
 	};
 	useEffect(() => {
 		const getUser = async () => {
-			await userApi.getInformation().then((res) => {
-				useUserStore.setState({ user: res.data });
-			});
+			await userApi
+				.getInformation()
+				.then((res) => {
+					useUserStore.setState({ user: res.data });
+				})
+				.catch((err) => {
+					console.log(err);
+					logout();
+				});
 		};
-		getUser();
+		const token = LocalStorageUtils.getItem('token');
+		token && getUser();
 	}, []);
+
 	return (
 		<Navbar
 			maxWidth='fluid'
@@ -123,22 +135,17 @@ const Header = () => {
 								<Grid>
 									<Dropdown>
 										<Dropdown.Trigger>
-											<Avatar
-												src={user?.avatarUrl}
-												size='lg'
-												as='button'
-												bordered
-												color='secondary'
-												css={{
-													borderRadius: '50%',
-													margin: '0 10px',
-													':hover': {
-														cursor: 'pointer',
-													},
+											<div
+												className='w-12 h-12 rounded-full bg-center bg-cover cursor-pointer'
+												style={{
+													backgroundImage: `url(${user?.avatarUrl}), url('https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg')`,
 												}}
-											/>
+											></div>
 										</Dropdown.Trigger>
 										<Dropdown.Menu onAction={(key: Key) => handleAction(key)}>
+											<Dropdown.Item key='channel' color='default'>
+												Your channels
+											</Dropdown.Item>
 											<Dropdown.Item key='profile' color='default'>
 												Your Profile
 											</Dropdown.Item>

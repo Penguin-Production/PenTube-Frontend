@@ -14,7 +14,7 @@ const HomePage = () => {
 		videoStore.setLoading(true);
 		const getVideo = async () => {
 			const res = await videoApi.getAll().finally(() => videoStore.setLoading(false));
-			videoStore.setVideo(res.data || []);
+			videoStore.setVideo(res.data?.reverse() || []);
 			return res;
 		};
 		getVideo();
