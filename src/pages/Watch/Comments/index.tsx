@@ -6,7 +6,7 @@ import useUserStore from '../../../storage/useUserStore';
 import useVideoStore from '../../../storage/useVideoStore';
 import videoApi from '../../../utils/apis/videoApi';
 import { useGetComments } from '../../../utils/hooks/useGetComment';
-import { TextAreaComment, CommentContainer } from '../styles';
+import { TextAreaComment } from '../styles';
 import ConfirmModal from './ConfirmModal';
 
 import { DotChartOutlined, MoreOutlined, SendOutlined } from '@ant-design/icons';
@@ -19,7 +19,6 @@ import {
 	Loading,
 	Card,
 	Grid,
-	Popover,
 	Dropdown,
 } from '@nextui-org/react';
 
@@ -85,10 +84,17 @@ const Comments = () => {
 					disabled={mess && mess.trim() !== '' ? false : true}
 					onClick={() => handleSubmit()}
 				>
-					{buttonLoading ? (
-						<Loading />
-					) : (
-						<>
+					<>
+						{buttonLoading ? (
+							<Loading
+								color='currentColor'
+								size='xs'
+								style={{
+									marginRight: '10px',
+									marginTop: '-5px',
+								}}
+							/>
+						) : (
 							<SendOutlined
 								style={{
 									transform: 'rotate(-45deg)',
@@ -96,9 +102,9 @@ const Comments = () => {
 									marginTop: '-5px',
 								}}
 							/>
-							Send
-						</>
-					)}
+						)}
+						Send
+					</>
 				</Button>
 			</TextAreaComment>
 			{loading ? (
@@ -107,7 +113,7 @@ const Comments = () => {
 				</Container>
 			) : (
 				videoComments?.length !== 0 &&
-				videoComments?.map((item, index) => (
+				videoComments?.map((item) => (
 					<Card
 						key={item._id}
 						css={{
@@ -119,46 +125,40 @@ const Comments = () => {
 						<Card.Body className='flex space-x-2 gap-4 mb-4p-4 rounded-md'>
 							<Grid.Container gap={1}>
 								<Grid>
-									<Avatar
-										src={item.authorId.avatarUrl}
-										alt={item.authorId.name}
-									/>
+									<Avatar src={item.authorId.avatarUrl} alt={item.authorId.name} />
 								</Grid>
 								<Grid.Container justify='space-between' className='flex-1'>
 									<Grid>
 										<div className=''>
 											<h5 className='mb-0'>{item.authorId.name}</h5>
-											<p className='text-neutral-400 mb-1'>
-												{moment(item.createdAt).fromNow()}
-											</p>
+											<p className='text-neutral-400 mb-1'>{moment(item.createdAt).fromNow()}</p>
 											<p>{item.content}</p>
 										</div>
 									</Grid>
 									<Grid>
-										<Dropdown placement='bottom-right'>
-											<Dropdown.Trigger>
-												<Button
-													icon={<MoreOutlined size={30} />}
-													auto
-													light
-												></Button>
-											</Dropdown.Trigger>
-											<Dropdown.Menu>
-												<Dropdown.Item key='logout' color='error'>
-													<Button
-														auto
-														color='error'
-														light
-														onClick={() => {
-															setConfirmModal(true);
-															setCommentId(item._id);
-														}}
-													>
-														Delete
-													</Button>
-												</Dropdown.Item>
-											</Dropdown.Menu>
-										</Dropdown>
+										{user?._id === item.authorId._id && (
+											<Dropdown placement='bottom-right'>
+												<Dropdown.Trigger>
+													<Button icon={<MoreOutlined size={30} />} auto light></Button>
+												</Dropdown.Trigger>
+												<Dropdown.Menu>
+													<Dropdown.Item color='error'>
+														<Button
+															auto
+															color='error'
+															light
+															css={{ width: '100%', justifyContent: 'flex-start' }}
+															onClick={() => {
+																setConfirmModal(true);
+																setCommentId(item._id);
+															}}
+														>
+															Delete
+														</Button>
+													</Dropdown.Item>
+												</Dropdown.Menu>
+											</Dropdown>
+										)}
 									</Grid>
 								</Grid.Container>
 							</Grid.Container>

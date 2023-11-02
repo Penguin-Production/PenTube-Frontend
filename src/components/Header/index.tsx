@@ -42,6 +42,10 @@ const Header = () => {
 	const history = async () => {
 		window.location.href = '/history';
 	};
+	const profile = async () => {
+		window.location.href = '/user/userProfile';
+	};
+
 	const handleAction = (key: Key) => {
 		switch (key) {
 			case 'logout':
@@ -49,6 +53,9 @@ const Header = () => {
 				break;
 			case 'history':
 				history();
+				break;
+			case 'profile':
+				profile();
 				break;
 			default:
 				break;
@@ -77,10 +84,7 @@ const Header = () => {
 					</Link>
 				</Text>
 			</Navbar.Brand>
-			<Navbar.Content
-				css={{ w: '100%', justifyContent: 'center', padding: '$10' }}
-				hideIn={'xs'}
-			>
+			<Navbar.Content css={{ w: '100%', justifyContent: 'center', padding: '$10' }} hideIn={'xs'}>
 				<Navbar.Item
 					css={{
 						flexBasis: '500px',
@@ -135,6 +139,9 @@ const Header = () => {
 											/>
 										</Dropdown.Trigger>
 										<Dropdown.Menu onAction={(key: Key) => handleAction(key)}>
+											<Dropdown.Item key='profile' color='default'>
+												Your Profile
+											</Dropdown.Item>
 											<Dropdown.Item key='history' color='default'>
 												History
 											</Dropdown.Item>
