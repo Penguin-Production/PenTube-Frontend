@@ -31,6 +31,7 @@ export type VideoApi = {
 	updateLike: (id: string, userId: string) => Promise<ResponseModal<Video>>;
 	deleteComment: (id: string, commentId: string) => Promise<ResponseModal<Video>>;
 	getHistory: () => Promise<ResponseModal<Array<Video>>>;
+	updateView: (id: string) => Promise<ResponseModal<Video>>;
 };
 
 const token = LocalStorageUtils.getItem('token');
@@ -83,6 +84,12 @@ const videoApi: VideoApi = {
 		const endpoint = `/user/histories`;
 		return await get(endpoint, {}, { Authorization: 'Bearer ' + token }).then(
 			(response): ResponseModal<Array<Video>> => response.data
+		);
+	},
+	updateView: async (id) => {
+		const endpoint = `/video/${id}/view`;
+		return await put(endpoint, {}, {}, { Authorization: 'Bearer ' + token }).then(
+			(response): ResponseModal<Video> => response.data
 		);
 	},
 };

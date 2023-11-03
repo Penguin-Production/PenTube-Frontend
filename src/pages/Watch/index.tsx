@@ -4,6 +4,7 @@ import moment from 'moment';
 import { AiOutlineReload } from 'react-icons/ai';
 import ReactPlayer from 'react-player';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FacebookShareCount, FacebookIcon, FacebookShareButton } from 'react-share';
 import { toast } from 'react-toastify';
 
 import useUserStore from '../../storage/useUserStore';
@@ -17,14 +18,7 @@ import Comments from './Comments';
 import RecommendVideo from './RecommendVideo';
 import { CommentContainer, TextAreaComment, WatchComponent } from './styles';
 
-import {
-	DislikeOutlined,
-	DownloadOutlined,
-	EllipsisOutlined,
-	LikeOutlined,
-	SendOutlined,
-	ShareAltOutlined,
-} from '@ant-design/icons';
+import { LikeOutlined } from '@ant-design/icons';
 import { Avatar, Button, Loading, Spacer, Textarea, Tooltip } from '@nextui-org/react';
 
 interface CommentItem {
@@ -62,6 +56,7 @@ export default function WatchVideo() {
 			};
 
 			if (videoStore.videos.length === 0) getVideo();
+			await videoApi.updateView(id || '');
 		};
 
 		fetchData();
@@ -164,7 +159,7 @@ export default function WatchVideo() {
 								)}
 							</Button>
 						</div>
-						<div className='flex flex-row gap-3'>
+						<div className='flex flex-row gap-3 mt-3'>
 							<div className='flex w-full justify-end'>
 								<Tooltip isDisabled={user !== null} content='You must login to like'>
 									<Button
@@ -185,10 +180,17 @@ export default function WatchVideo() {
 									<DislikeOutlined />
 								</button> */}
 							</div>
-							<Button size='md'>
+							{/* <FacebookShareButton url={window.location.href}>
+								<Button auto icon={<FacebookIcon size={24} round />}>
+									Share
+								</Button>
+								<FacebookShareCount url={window.location.href} />
+							</FacebookShareButton> */}
+
+							{/* <Button size='md'>
 								<ShareAltOutlined />
 								Share
-							</Button>
+							</Button> */}
 							{/* <button>
 								<DownloadOutlined />
 								Download
