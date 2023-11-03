@@ -118,6 +118,7 @@ export default function WatchVideo() {
 	};
 
 	if (isLoading) return <Loading type='gradient' />;
+
 	return (
 		<WatchComponent>
 			{video && (
@@ -180,12 +181,12 @@ export default function WatchVideo() {
 									<DislikeOutlined />
 								</button> */}
 							</div>
-							{/* <FacebookShareButton url={window.location.href}>
-								<Button auto icon={<FacebookIcon size={24} round />}>
+							<Button bordered color='primary'>
+								<FacebookShareButton url={window.location.href} className='flex gap-2 items-center'>
 									Share
-								</Button>
-								<FacebookShareCount url={window.location.href} />
-							</FacebookShareButton> */}
+									<FacebookIcon size={24} round />
+								</FacebookShareButton>
+							</Button>
 
 							{/* <Button size='md'>
 								<ShareAltOutlined />
