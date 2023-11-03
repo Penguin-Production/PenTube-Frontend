@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import userApi from '../../utils/apis/user.api';
 import { LocalStorageUtils } from '../../utils/helper/localStorage';
-import { RegisterComponent } from './styles';
+import { ProfileComponent } from './styles';
 
 import { CameraOutlined } from '@ant-design/icons/lib/icons';
-import { Modal, Button, Text, Input, Image, Grid, Spacer, Loading } from '@nextui-org/react';
+import { Modal, Button, Text, Input, Image, Grid, Spacer, Loading, Link } from '@nextui-org/react';
+import 'react-toastify/dist/ReactToastify.css';
 
 type UserType = {
 	name: string;
@@ -17,7 +18,7 @@ type UserType = {
 };
 type NotificationType = 'success' | 'error';
 
-export default function RegisterPage() {
+export default function UserProfilePage() {
 	const [isLoad, setIsLoad] = React.useState<boolean>(false);
 	const [isHover, setIsHover] = React.useState<boolean>(false);
 	const [avatar, setAvatar] = React.useState<string>('');
@@ -46,7 +47,7 @@ export default function RegisterPage() {
 	const openNotificationWithIcon = (type: NotificationType, content: string) => {
 		if (type === 'success')
 			toast.success(content, {
-				position: 'top-right',
+				position: 'bottom-right',
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
@@ -90,8 +91,21 @@ export default function RegisterPage() {
 	};
 
 	const onFinishModal = () => {
-		setAvatar(temporal);
-		setIsModal(false);
+		if (temporal.trim() === '') {
+			// Hiển thị thông báo lỗi nếu trường avatar url trống
+			toast.error('Avatar URL cannot be empty!', {
+				position: 'top-right',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				progress: undefined,
+				theme: 'light',
+			});
+		} else {
+			setAvatar(temporal);
+			setIsModal(false);
+		}
 	};
 
 	const onCancelModal = () => {
@@ -100,10 +114,11 @@ export default function RegisterPage() {
 	};
 
 	return (
-		<RegisterComponent>
+		<ProfileComponent>
+			<ToastContainer />
 			{user && (
 				<div className='container'>
-					<h3 style={{ textAlign: 'center' }}>Update Your Account</h3>
+					<h3 style={{ textAlign: 'center' }}>Update Your Profile</h3>
 					<div
 						className='avatar'
 						onMouseEnter={() => setIsHover(true)}
@@ -118,8 +133,8 @@ export default function RegisterPage() {
 					</div>
 					<form onSubmit={onFinishForm}>
 						<p>
-							<span style={{ color: 'red' }}>*</span>
 							Name
+							<span style={{ color: 'red' }}> *</span>
 						</p>
 						<Input
 							placeholder='Input your name'
@@ -132,8 +147,8 @@ export default function RegisterPage() {
 						/>
 						<Spacer y={1} />
 						<p>
-							<span style={{ color: 'red' }}>*</span>
 							Email
+							<span style={{ color: 'red' }}> *</span>
 						</p>
 						<Input
 							type='email'
@@ -144,36 +159,56 @@ export default function RegisterPage() {
 							width='100%'
 							name='email'
 						/>
-						<Spacer y={1} />
-						<Grid.Container style={{ fontSize: '16px' }} justify='center'>
-							<Button
-								bordered
-								color='error'
-								auto
-								style={{ margin: '5px' }}
-								onClick={() => navigate('/')}
-							>
-								Cancel
-							</Button>
-							<Button type='submit' auto style={{ margin: '5px' }}>
-								{isLoad && (
-									<Loading
-										type='default'
-										color='white'
-										size='sm'
-										style={{ marginRight: '5px' }}
-									/>
-								)}
-								Update
-							</Button>
+
+						<Grid.Container
+							style={{ fontSize: '16px', marginTop: '1rem' }}
+							justify='center'
+							alignItems='center'
+							wrap='nowrap'
+							gap={1}
+						>
+							<Grid>
+								<Link href='/history'>
+									<Button bordered style={{ textAlign: 'center' }}>
+										<p>Your Watch History</p>
+									</Button>
+								</Link>
+							</Grid>
+
+							<Grid>
+								<Button
+									bordered
+									color='error'
+									auto
+									style={{ margin: '5px' }}
+									onClick={() => navigate('/')}
+								>
+									Cancel
+								</Button>
+							</Grid>
+							<Grid>
+								<Button
+									type='submit'
+									auto
+									style={{ margin: '5px' }}
+									icon={
+										isLoad && (
+											<Loading
+												type='default'
+												color='white'
+												size='sm'
+												style={{ marginRight: '5px' }}
+											/>
+										)
+									}
+								>
+									Update
+								</Button>
+							</Grid>
 						</Grid.Container>
 					</form>
-					<Modal
-						closeButton
-						aria-labelledby='modal-title'
-						open={isModal}
-						onClose={onCancelModal}
-					>
+
+					<Modal closeButton aria-labelledby='modal-title' open={isModal} onClose={onCancelModal}>
 						<Modal.Header>
 							<Text id='modal-title' size={18}>
 								Change avatar
@@ -203,6 +238,6 @@ export default function RegisterPage() {
 					</Modal>
 				</div>
 			)}
-		</RegisterComponent>
+		</ProfileComponent>
 	);
 }

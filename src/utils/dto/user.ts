@@ -1,11 +1,9 @@
 import { StringMap } from 'i18next';
 
 export type User = {
+	_id: string;
 	name: string;
 	role: string;
 	status: StringMap;
+	avatarUrl: string;
 };
-
-export class UserDTO {
-	constructor(name: string, role: string, status: string) {}
-}

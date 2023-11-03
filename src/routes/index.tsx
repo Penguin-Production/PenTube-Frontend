@@ -1,10 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Layout from '../components/Layout';
+import ListChannel from '../pages/Channel';
+import DetailChannel from '../pages/Channel/components/detailChannel';
 import ErrorPage from '../pages/Error';
+import { HistoryPage } from '../pages/History';
 import HomePage from '../pages/Home';
 import RegisterPage from '../pages/Register';
 import SearchPage from '../pages/Search';
+import UserProfilePage from '../pages/UserProfile';
 import WatchVideo from '../pages/Watch';
 import Welcome from '../pages/Welcome';
 import Auth from '../utils/hooks/useAuth';
@@ -39,13 +43,28 @@ const publicRoute: Array<Record<string, any>> = [
 		exact: true,
 		component: <RegisterPage />,
 	},
+
+	{
+		path: 'channels/channel/:id',
+		exact: true,
+		component: <DetailChannel />,
+	},
 ];
 
 const privateRoute: Array<Record<string, any>> = [
 	{
 		role: 'user',
 		// TODO: path and route just for testing, change it if needed
-		routes: [{ path: '/user/home', exact: true, component: <HomePage /> }],
+		routes: [
+			{ path: '/user/home', exact: true, component: <HomePage /> },
+			{ path: '/channels/me', exact: true, component: <ListChannel /> },
+			{ path: '/user/userProfile', exact: true, component: <UserProfilePage /> },
+			{
+				path: '/history',
+				exact: true,
+				component: <HistoryPage />,
+			},
+		],
 	},
 	{
 		role: 'admin',

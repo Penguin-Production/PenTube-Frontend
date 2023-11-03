@@ -1,7 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { User } from '../utils/dto/user';
-import usePersistedState from '../utils/hooks/usePersistedState';
+import { LocalStorageUtils } from '../utils/helper/localStorage';
 
 type props = {
 	role: string;
@@ -9,9 +8,8 @@ type props = {
 
 // we may not use the role attribute
 const PrivateRoute = (props: props) => {
-	const { role } = props;
-	const [user, setUser] = usePersistedState<User>('user', {} as User);
-	if (user.role === role) {
+	const token = LocalStorageUtils.getItem('token');
+	if (token) {
 		return <Outlet />;
 	}
 	return <Navigate to='/' />;

@@ -12,7 +12,6 @@ type Props = {
 const Auth = (props: Props) => {
 	const { children } = props;
 	const [searchParams, setSearchParams] = useSearchParams();
-	const navigate = useNavigate();
 	const [token, setToken] = usePersistedState<string>('token');
 	const [refreshToken, setRefreshToken] = usePersistedState<string>('refreshToken');
 
@@ -23,10 +22,10 @@ const Auth = (props: Props) => {
 		if (tokenParam && refreshTokenParam) {
 			setToken(tokenParam);
 			setRefreshToken(refreshTokenParam);
-			searchParams.delete('token');
-			searchParams.delete('refreshToken');
-			navigate('/');
-			navigate(0);
+			// searchParams.delete('token');
+			// searchParams.delete('refreshToken');
+			// setSearchParams(searchParams);
+			window.location.href = '/';
 		}
 	}, [location]);
 	return <authContext.Provider value={token}>{children}</authContext.Provider>;
