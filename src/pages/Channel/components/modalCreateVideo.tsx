@@ -93,14 +93,6 @@ export default function ModalCreateVideo({
 						value={state.title}
 						onChange={(e) => setState({ ...state, title: e.target.value })}
 					/>
-					<Textarea
-						required
-						label='Description'
-						placeholder='More description about video'
-						className='mb-3'
-						value={state.description ? state.description : ''}
-						onChange={(e) => setState({ ...state, description: e.target.value })}
-					/>
 					<Input
 						required
 						label='Url'
@@ -108,6 +100,14 @@ export default function ModalCreateVideo({
 						className='mb-3'
 						value={state.url}
 						onChange={(e) => setState({ ...state, url: e.target.value })}
+					/>
+					<Textarea
+						required
+						label='Description'
+						placeholder='More description about video'
+						className='mb-3'
+						value={state.description ? state.description : ''}
+						onChange={(e) => setState({ ...state, description: e.target.value })}
 					/>
 					<Button type='submit' className='mt-5' onClick={onSubmit} disabled={loading}>
 						{loading ? <AiOutlineReload className='animate-spin text-2xl ml-2' /> : 'Create'}
