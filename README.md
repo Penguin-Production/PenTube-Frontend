@@ -7,13 +7,13 @@ A small project showing video for everyone. Inspired from youtube.
 - [x] Watch video
 - [x] Search video
 - [x] Login and registry with google
-- [ ] Share video 
-- [ ] Like video
-- [ ] Channel dashboard
+- [x] Share video 
+- [x] Like video
+- [x] Channel dashboard
 - [ ] Analysic video by location
 
 ## A Quick Look 
-Checkout our demo [here](https://pen-tube-frontend.vercel.app/)
+Checkout our demo [here](https://pentube.vercel.app/)
 
 Below are some screen shot:
 - Home page
